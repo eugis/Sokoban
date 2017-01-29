@@ -1,0 +1,45 @@
+var _user$project$Component_Type$isGoal = function (component) {
+	var _p0 = component;
+	if (_p0.ctor === 'Goal') {
+		return true;
+	} else {
+		return false;
+	}
+};
+var _user$project$Component_Type$notEmpty = function (component) {
+	var _p1 = component;
+	if (_p1.ctor === 'Empty') {
+		return false;
+	} else {
+		return true;
+	}
+};
+var _user$project$Component_Type$isOccupable = function (component) {
+	var _p2 = component;
+	switch (_p2.ctor) {
+		case 'Floor':
+			return true;
+		case 'Goal':
+			return true;
+		default:
+			return false;
+	}
+};
+var _user$project$Component_Type$isMovable = function (component) {
+	var _p3 = component;
+	switch (_p3.ctor) {
+		case 'Box':
+			return true;
+		case 'Player':
+			return true;
+		default:
+			return false;
+	}
+};
+var _user$project$Component_Type$size = 30;
+var _user$project$Component_Type$Empty = {ctor: 'Empty'};
+var _user$project$Component_Type$Player = {ctor: 'Player'};
+var _user$project$Component_Type$Goal = {ctor: 'Goal'};
+var _user$project$Component_Type$Wall = {ctor: 'Wall'};
+var _user$project$Component_Type$Floor = {ctor: 'Floor'};
+var _user$project$Component_Type$Box = {ctor: 'Box'};

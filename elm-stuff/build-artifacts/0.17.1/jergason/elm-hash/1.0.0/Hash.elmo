@@ -1,0 +1,7 @@
+var _jergason$elm_hash$Hash$updateHash = F2(
+	function (c, h) {
+		return (A2(_elm_lang$core$Bitwise$shiftLeft, h, 5) + h) + _elm_lang$core$Char$toCode(c);
+	});
+var _jergason$elm_hash$Hash$hash = function (str) {
+	return A3(_elm_lang$core$String$foldl, _jergason$elm_hash$Hash$updateHash, 5381, str);
+};

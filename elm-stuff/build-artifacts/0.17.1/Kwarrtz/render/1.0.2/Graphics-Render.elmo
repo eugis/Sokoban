@@ -1,0 +1,686 @@
+var _Kwarrtz$render$Graphics_Render$svgDecodeAlpha = function (c) {
+	var _p0 = _elm_lang$core$Color$toRgb(c);
+	var alpha = _p0.alpha;
+	return _elm_lang$core$Basics$toString(alpha);
+};
+var _Kwarrtz$render$Graphics_Render$svgDecodeColor = function (c) {
+	var _p1 = _elm_lang$core$Color$toRgb(c);
+	var red = _p1.red;
+	var green = _p1.green;
+	var blue = _p1.blue;
+	var r = _elm_lang$core$Basics$toString(red);
+	var g = _elm_lang$core$Basics$toString(green);
+	var b = _elm_lang$core$Basics$toString(blue);
+	return _elm_lang$core$String$concat(
+		_elm_lang$core$Native_List.fromArray(
+			['rgb(', r, ',', g, ',', b, ')']));
+};
+var _Kwarrtz$render$Graphics_Render$svgDecodeFillAlpha = function (fs) {
+	var _p2 = fs;
+	if (_p2.ctor === 'Solid') {
+		return _Kwarrtz$render$Graphics_Render$svgDecodeAlpha(_p2._0);
+	} else {
+		return _elm_lang$core$Basics$toString(_p2._3);
+	}
+};
+var _Kwarrtz$render$Graphics_Render$svgDecodeFill = F2(
+	function (fs, id) {
+		var _p3 = fs;
+		if (_p3.ctor === 'Solid') {
+			return _Kwarrtz$render$Graphics_Render$svgDecodeColor(_p3._0);
+		} else {
+			return _elm_lang$core$String$concat(
+				_elm_lang$core$Native_List.fromArray(
+					[
+						'url(#UUID',
+						_elm_lang$core$Basics$toString(id),
+						')'
+					]));
+		}
+	});
+var _Kwarrtz$render$Graphics_Render$svgEvalFill = F2(
+	function (fs, id) {
+		var _p4 = fs;
+		if (_p4.ctor === 'Texture') {
+			var _p6 = _p4._1;
+			var _p5 = _p4._2;
+			return _elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$svg$Svg$defs,
+					_elm_lang$core$Native_List.fromArray(
+						[]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_elm_lang$svg$Svg$pattern,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$svg$Svg_Attributes$width(
+									_elm_lang$core$Basics$toString(_p6)),
+									_elm_lang$svg$Svg_Attributes$height(
+									_elm_lang$core$Basics$toString(_p5)),
+									_elm_lang$svg$Svg_Attributes$patternUnits('userSpaceOnUse'),
+									_elm_lang$svg$Svg_Attributes$id(
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										'UUID',
+										_elm_lang$core$Basics$toString(id)))
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									A2(
+									_elm_lang$svg$Svg$image,
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$svg$Svg_Attributes$width(
+											_elm_lang$core$Basics$toString(_p6)),
+											_elm_lang$svg$Svg_Attributes$height(
+											_elm_lang$core$Basics$toString(_p5)),
+											_elm_lang$svg$Svg_Attributes$xlinkHref(_p4._0)
+										]),
+									_elm_lang$core$Native_List.fromArray(
+										[]))
+								]))
+						]))
+				]);
+		} else {
+			return _elm_lang$core$Native_List.fromArray(
+				[]);
+		}
+	});
+var _Kwarrtz$render$Graphics_Render$svgTransform = F3(
+	function (height, width, obj) {
+		var scale = _elm_lang$core$Basics$toString(obj.scale);
+		var theta = _elm_lang$core$Basics$toString(((obj.theta / 2) / _elm_lang$core$Basics$pi) * 360);
+		var y = _elm_lang$core$Basics$toString(obj.y);
+		var x = _elm_lang$core$Basics$toString(obj.x);
+		return _elm_lang$core$String$concat(
+			_elm_lang$core$Native_List.fromArray(
+				['translate(', x, ',', y, ') rotate(', theta, ') scale(', scale, ')']));
+	});
+var _Kwarrtz$render$Graphics_Render$svgDecodePoints = function (ps) {
+	return A2(
+		_elm_lang$core$String$join,
+		' ',
+		_elm_lang$core$List$concat(
+			A2(
+				_elm_lang$core$List$map,
+				function (_p7) {
+					var _p8 = _p7;
+					return _elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$core$Basics$toString(_p8._0),
+							_elm_lang$core$Basics$toString(_p8._1)
+						]);
+				},
+				ps)));
+};
+var _Kwarrtz$render$Graphics_Render$svgDecodeJoin = function (join) {
+	var _p9 = join;
+	switch (_p9.ctor) {
+		case 'Smooth':
+			return 'round';
+		case 'Sharp':
+			return 'milter';
+		default:
+			return 'bevel';
+	}
+};
+var _Kwarrtz$render$Graphics_Render$svgDecodeCap = function (cap) {
+	var _p10 = cap;
+	switch (_p10.ctor) {
+		case 'Round':
+			return 'round';
+		case 'Square':
+			return 'square';
+		default:
+			return 'butt';
+	}
+};
+var _Kwarrtz$render$Graphics_Render$attrs = F4(
+	function (width, height, form, id) {
+		var _p11 = form.form;
+		switch (_p11.ctor) {
+			case 'FLine':
+				var _p12 = _p11._1;
+				return _elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$svg$Svg_Attributes$stroke(
+						_Kwarrtz$render$Graphics_Render$svgDecodeColor(_p12.color)),
+						_elm_lang$svg$Svg_Attributes$strokeOpacity(
+						_Kwarrtz$render$Graphics_Render$svgDecodeAlpha(_p12.color)),
+						_elm_lang$svg$Svg_Attributes$strokeWidth(
+						_elm_lang$core$Basics$toString(_p12.width)),
+						_elm_lang$svg$Svg_Attributes$strokeLinecap(
+						_Kwarrtz$render$Graphics_Render$svgDecodeCap(_p12.cap)),
+						_elm_lang$svg$Svg_Attributes$strokeLinejoin(
+						_Kwarrtz$render$Graphics_Render$svgDecodeJoin(_p12.join)),
+						_elm_lang$svg$Svg_Attributes$opacity(
+						_elm_lang$core$Basics$toString(form.alpha)),
+						_elm_lang$svg$Svg_Attributes$transform(
+						A3(_Kwarrtz$render$Graphics_Render$svgTransform, height, width, form))
+					]);
+			case 'FShape':
+				var _p13 = _p11._1;
+				return _elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$svg$Svg_Attributes$fill(
+						A2(_Kwarrtz$render$Graphics_Render$svgDecodeFill, _p13.fill, id)),
+						_elm_lang$svg$Svg_Attributes$fillOpacity(
+						_Kwarrtz$render$Graphics_Render$svgDecodeFillAlpha(_p13.fill)),
+						_elm_lang$svg$Svg_Attributes$stroke(
+						_Kwarrtz$render$Graphics_Render$svgDecodeColor(_p13.border.color)),
+						_elm_lang$svg$Svg_Attributes$strokeOpacity(
+						_Kwarrtz$render$Graphics_Render$svgDecodeAlpha(_p13.border.color)),
+						_elm_lang$svg$Svg_Attributes$strokeWidth(
+						_elm_lang$core$Basics$toString(_p13.border.width)),
+						_elm_lang$svg$Svg_Attributes$strokeLinecap(
+						_Kwarrtz$render$Graphics_Render$svgDecodeCap(_p13.border.cap)),
+						_elm_lang$svg$Svg_Attributes$strokeLinejoin(
+						_Kwarrtz$render$Graphics_Render$svgDecodeJoin(_p13.border.join)),
+						_elm_lang$svg$Svg_Attributes$opacity(
+						_elm_lang$core$Basics$toString(form.alpha)),
+						_elm_lang$svg$Svg_Attributes$transform(
+						A3(_Kwarrtz$render$Graphics_Render$svgTransform, height, width, form))
+					]);
+			case 'FText':
+				var _p14 = _p11._1;
+				return _elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$svg$Svg_Attributes$fill(
+						_Kwarrtz$render$Graphics_Render$svgDecodeColor(_p14.color)),
+						_elm_lang$svg$Svg_Attributes$fontFamily(_p14.fontFamily),
+						_elm_lang$svg$Svg_Attributes$fontSize(
+						_elm_lang$core$Basics$toString(_p14.fontSize)),
+						_elm_lang$svg$Svg_Attributes$fontWeight(
+						_p14.bold ? 'bold' : 'normal'),
+						_elm_lang$svg$Svg_Attributes$fontStyle(
+						_p14.italic ? 'italic' : 'normal'),
+						_elm_lang$svg$Svg_Attributes$textDecoration(
+						_p14.underlined ? 'underline' : 'none'),
+						_elm_lang$svg$Svg_Attributes$transform(
+						A3(_Kwarrtz$render$Graphics_Render$svgTransform, height, width, form))
+					]);
+			default:
+				return _elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$svg$Svg_Attributes$transform(
+						A3(_Kwarrtz$render$Graphics_Render$svgTransform, height, width, form))
+					]);
+		}
+	});
+var _Kwarrtz$render$Graphics_Render$renderSvg$ = F4(
+	function (w, h, form, id) {
+		var _p15 = form.form;
+		switch (_p15.ctor) {
+			case 'FLine':
+				var _p16 = _p15._0;
+				return {
+					ctor: '_Tuple2',
+					_0: id,
+					_1: _elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_elm_lang$svg$Svg$polyline,
+							A2(
+								_elm_lang$core$List_ops['::'],
+								_elm_lang$svg$Svg_Attributes$points(
+									_Kwarrtz$render$Graphics_Render$svgDecodePoints(_p16._0)),
+								A4(_Kwarrtz$render$Graphics_Render$attrs, w, h, form, id)),
+							_elm_lang$core$Native_List.fromArray(
+								[]))
+						])
+				};
+			case 'FShape':
+				var _p18 = _p15._1;
+				var _p17 = _p15._0;
+				if (_p17.ctor === 'Polygon') {
+					return {
+						ctor: '_Tuple2',
+						_0: id + 1,
+						_1: A2(
+							_elm_lang$core$Basics_ops['++'],
+							A2(_Kwarrtz$render$Graphics_Render$svgEvalFill, _p18.fill, id),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									A2(
+									_elm_lang$svg$Svg$polygon,
+									A2(
+										_elm_lang$core$List_ops['::'],
+										_elm_lang$svg$Svg_Attributes$points(
+											_Kwarrtz$render$Graphics_Render$svgDecodePoints(_p17._0)),
+										A4(_Kwarrtz$render$Graphics_Render$attrs, w, h, form, id)),
+									_elm_lang$core$Native_List.fromArray(
+										[]))
+								]))
+					};
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: id + 1,
+						_1: A2(
+							_elm_lang$core$Basics_ops['++'],
+							A2(_Kwarrtz$render$Graphics_Render$svgEvalFill, _p18.fill, id),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									A2(
+									_elm_lang$svg$Svg$ellipse,
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										A4(_Kwarrtz$render$Graphics_Render$attrs, w, h, form, id),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$svg$Svg_Attributes$rx(
+												_elm_lang$core$Basics$toString(_p17._0)),
+												_elm_lang$svg$Svg_Attributes$ry(
+												_elm_lang$core$Basics$toString(_p17._1))
+											])),
+									_elm_lang$core$Native_List.fromArray(
+										[]))
+								]))
+					};
+				}
+			case 'FText':
+				return {
+					ctor: '_Tuple2',
+					_0: id,
+					_1: _elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_elm_lang$svg$Svg$text$,
+							A4(_Kwarrtz$render$Graphics_Render$attrs, w, h, form, id),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$svg$Svg$text(_p15._0)
+								]))
+						])
+				};
+			case 'FImage':
+				return {
+					ctor: '_Tuple2',
+					_0: id,
+					_1: _elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_elm_lang$svg$Svg$image,
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								A4(_Kwarrtz$render$Graphics_Render$attrs, w, h, form, id),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$svg$Svg_Attributes$width(
+										_elm_lang$core$Basics$toString(_p15._1)),
+										_elm_lang$svg$Svg_Attributes$height(
+										_elm_lang$core$Basics$toString(_p15._2)),
+										_elm_lang$svg$Svg_Attributes$xlinkHref(_p15._0)
+									])),
+							_elm_lang$core$Native_List.fromArray(
+								[]))
+						])
+				};
+			case 'FElem':
+				return {
+					ctor: '_Tuple2',
+					_0: id,
+					_1: _elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_elm_lang$svg$Svg$foreignObject,
+							A4(_Kwarrtz$render$Graphics_Render$attrs, w, h, form, id),
+							_elm_lang$core$Native_List.fromArray(
+								[_p15._0]))
+						])
+				};
+			default:
+				var go = F2(
+					function (_p19, fs) {
+						go:
+						while (true) {
+							var _p20 = _p19;
+							var _p24 = _p20._1;
+							var _p23 = _p20._0;
+							var _p21 = fs;
+							if (_p21.ctor === '[]') {
+								return {ctor: '_Tuple2', _0: _p23, _1: _p24};
+							} else {
+								var _p22 = A4(_Kwarrtz$render$Graphics_Render$renderSvg$, w, h, _p21._0, _p23);
+								var i$ = _p22._0;
+								var rs$ = _p22._1;
+								var _v12 = {
+									ctor: '_Tuple2',
+									_0: _p23 + i$,
+									_1: A2(_elm_lang$core$Basics_ops['++'], _p24, rs$)
+								},
+									_v13 = _p21._1;
+								_p19 = _v12;
+								fs = _v13;
+								continue go;
+							}
+						}
+					});
+				var _p25 = A2(
+					go,
+					{
+						ctor: '_Tuple2',
+						_0: id,
+						_1: _elm_lang$core$Native_List.fromArray(
+							[])
+					},
+					_p15._0);
+				var id$ = _p25._0;
+				var forms$ = _p25._1;
+				return {
+					ctor: '_Tuple2',
+					_0: id$,
+					_1: _elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_elm_lang$svg$Svg$g,
+							A4(_Kwarrtz$render$Graphics_Render$attrs, w, h, form, id),
+							forms$)
+						])
+				};
+		}
+	});
+var _Kwarrtz$render$Graphics_Render$opacity = F2(
+	function (alpha, form) {
+		return _elm_lang$core$Native_Utils.update(
+			form,
+			{alpha: alpha});
+	});
+var _Kwarrtz$render$Graphics_Render$scale = F2(
+	function (scale, form) {
+		return _elm_lang$core$Native_Utils.update(
+			form,
+			{scale: form.scale * scale});
+	});
+var _Kwarrtz$render$Graphics_Render$rotate = F2(
+	function (theta, form) {
+		return _elm_lang$core$Native_Utils.update(
+			form,
+			{theta: form.theta + theta});
+	});
+var _Kwarrtz$render$Graphics_Render$move = F3(
+	function (x, y, form) {
+		return _elm_lang$core$Native_Utils.update(
+			form,
+			{x: form.x + x, y: form.y + y});
+	});
+var _Kwarrtz$render$Graphics_Render$svg = F3(
+	function (width, height, form) {
+		var y = height / 2;
+		var x = width / 2;
+		return A2(
+			_elm_lang$svg$Svg$svg,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$svg$Svg_Attributes$height(
+					_elm_lang$core$Basics$toString(height)),
+					_elm_lang$svg$Svg_Attributes$width(
+					_elm_lang$core$Basics$toString(width)),
+					_elm_lang$svg$Svg_Attributes$version('1.1')
+				]),
+			_elm_lang$core$Basics$snd(
+				A4(
+					_Kwarrtz$render$Graphics_Render$renderSvg$,
+					width,
+					height,
+					A3(_Kwarrtz$render$Graphics_Render$move, x, y, form),
+					0)));
+	});
+var _Kwarrtz$render$Graphics_Render$size = F2(
+	function (scale, form) {
+		return _elm_lang$core$Native_Utils.update(
+			form,
+			{scale: scale});
+	});
+var _Kwarrtz$render$Graphics_Render$angle = F2(
+	function (theta, form) {
+		return _elm_lang$core$Native_Utils.update(
+			form,
+			{theta: theta});
+	});
+var _Kwarrtz$render$Graphics_Render$position = F2(
+	function (_p26, form) {
+		var _p27 = _p26;
+		return _elm_lang$core$Native_Utils.update(
+			form,
+			{x: _p27._0, y: _p27._1});
+	});
+var _Kwarrtz$render$Graphics_Render$plainStyle = F3(
+	function (size, family, color) {
+		return {color: color, fontSize: size, fontFamily: family, bold: false, italic: false, underlined: false};
+	});
+var _Kwarrtz$render$Graphics_Render$form = function (bForm) {
+	return {x: 0, y: 0, theta: 0, scale: 1, alpha: 1.0, form: bForm};
+};
+var _Kwarrtz$render$Graphics_Render$Form = F6(
+	function (a, b, c, d, e, f) {
+		return {x: a, y: b, theta: c, scale: d, alpha: e, form: f};
+	});
+var _Kwarrtz$render$Graphics_Render$LineStyle = F6(
+	function (a, b, c, d, e, f) {
+		return {color: a, width: b, cap: c, join: d, dashing: e, dashOffset: f};
+	});
+var _Kwarrtz$render$Graphics_Render$ShapeStyle = F2(
+	function (a, b) {
+		return {fill: a, border: b};
+	});
+var _Kwarrtz$render$Graphics_Render$TextStyle = F6(
+	function (a, b, c, d, e, f) {
+		return {color: a, fontSize: b, fontFamily: c, italic: d, bold: e, underlined: f};
+	});
+var _Kwarrtz$render$Graphics_Render$FElem = function (a) {
+	return {ctor: 'FElem', _0: a};
+};
+var _Kwarrtz$render$Graphics_Render$html = function (elem) {
+	return _Kwarrtz$render$Graphics_Render$form(
+		_Kwarrtz$render$Graphics_Render$FElem(elem));
+};
+var _Kwarrtz$render$Graphics_Render$FGroup = function (a) {
+	return {ctor: 'FGroup', _0: a};
+};
+var _Kwarrtz$render$Graphics_Render$group = function (forms) {
+	return _Kwarrtz$render$Graphics_Render$form(
+		_Kwarrtz$render$Graphics_Render$FGroup(forms));
+};
+var _Kwarrtz$render$Graphics_Render$FImage = F3(
+	function (a, b, c) {
+		return {ctor: 'FImage', _0: a, _1: b, _2: c};
+	});
+var _Kwarrtz$render$Graphics_Render$image = F3(
+	function (w, h, url) {
+		return _Kwarrtz$render$Graphics_Render$form(
+			A3(_Kwarrtz$render$Graphics_Render$FImage, url, w, h));
+	});
+var _Kwarrtz$render$Graphics_Render$FText = F2(
+	function (a, b) {
+		return {ctor: 'FText', _0: a, _1: b};
+	});
+var _Kwarrtz$render$Graphics_Render$text = F2(
+	function (text, style) {
+		return _Kwarrtz$render$Graphics_Render$form(
+			A2(_Kwarrtz$render$Graphics_Render$FText, text, style));
+	});
+var _Kwarrtz$render$Graphics_Render$plain = F4(
+	function (size, family, color, t) {
+		return A2(
+			_Kwarrtz$render$Graphics_Render$text,
+			t,
+			A3(_Kwarrtz$render$Graphics_Render$plainStyle, size, family, color));
+	});
+var _Kwarrtz$render$Graphics_Render$bold = F4(
+	function (size, family, color, t) {
+		var ts = A3(_Kwarrtz$render$Graphics_Render$plainStyle, size, family, color);
+		return A2(
+			_Kwarrtz$render$Graphics_Render$text,
+			t,
+			_elm_lang$core$Native_Utils.update(
+				ts,
+				{bold: true}));
+	});
+var _Kwarrtz$render$Graphics_Render$italic = F4(
+	function (size, family, color, t) {
+		var ts = A3(_Kwarrtz$render$Graphics_Render$plainStyle, size, family, color);
+		return A2(
+			_Kwarrtz$render$Graphics_Render$text,
+			t,
+			_elm_lang$core$Native_Utils.update(
+				ts,
+				{italic: true}));
+	});
+var _Kwarrtz$render$Graphics_Render$underlined = F4(
+	function (size, family, color, t) {
+		var ts = A3(_Kwarrtz$render$Graphics_Render$plainStyle, size, family, color);
+		return A2(
+			_Kwarrtz$render$Graphics_Render$text,
+			t,
+			_elm_lang$core$Native_Utils.update(
+				ts,
+				{underlined: true}));
+	});
+var _Kwarrtz$render$Graphics_Render$FShape = F2(
+	function (a, b) {
+		return {ctor: 'FShape', _0: a, _1: b};
+	});
+var _Kwarrtz$render$Graphics_Render$shape = F2(
+	function (shape, style) {
+		return _Kwarrtz$render$Graphics_Render$form(
+			A2(_Kwarrtz$render$Graphics_Render$FShape, shape, style));
+	});
+var _Kwarrtz$render$Graphics_Render$FLine = F2(
+	function (a, b) {
+		return {ctor: 'FLine', _0: a, _1: b};
+	});
+var _Kwarrtz$render$Graphics_Render$line = F2(
+	function (line, style) {
+		return _Kwarrtz$render$Graphics_Render$form(
+			A2(_Kwarrtz$render$Graphics_Render$FLine, line, style));
+	});
+var _Kwarrtz$render$Graphics_Render$Polyline = function (a) {
+	return {ctor: 'Polyline', _0: a};
+};
+var _Kwarrtz$render$Graphics_Render$polyline = _Kwarrtz$render$Graphics_Render$Polyline;
+var _Kwarrtz$render$Graphics_Render$segment = F2(
+	function (a, b) {
+		return _Kwarrtz$render$Graphics_Render$polyline(
+			_elm_lang$core$Native_List.fromArray(
+				[a, b]));
+	});
+var _Kwarrtz$render$Graphics_Render$Ellipse = F2(
+	function (a, b) {
+		return {ctor: 'Ellipse', _0: a, _1: b};
+	});
+var _Kwarrtz$render$Graphics_Render$ellipse = _Kwarrtz$render$Graphics_Render$Ellipse;
+var _Kwarrtz$render$Graphics_Render$circle = function (r) {
+	return A2(_Kwarrtz$render$Graphics_Render$ellipse, r, r);
+};
+var _Kwarrtz$render$Graphics_Render$Polygon = function (a) {
+	return {ctor: 'Polygon', _0: a};
+};
+var _Kwarrtz$render$Graphics_Render$polygon = _Kwarrtz$render$Graphics_Render$Polygon;
+var _Kwarrtz$render$Graphics_Render$rectangle = F2(
+	function (w, h) {
+		return _Kwarrtz$render$Graphics_Render$polygon(
+			_elm_lang$core$Native_List.fromArray(
+				[
+					{ctor: '_Tuple2', _0: 0 - (w / 2), _1: h / 2},
+					{ctor: '_Tuple2', _0: w / 2, _1: h / 2},
+					{ctor: '_Tuple2', _0: w / 2, _1: 0 - (h / 2)},
+					{ctor: '_Tuple2', _0: 0 - (w / 2), _1: 0 - (h / 2)}
+				]));
+	});
+var _Kwarrtz$render$Graphics_Render$Flat = {ctor: 'Flat'};
+var _Kwarrtz$render$Graphics_Render$Square = {ctor: 'Square'};
+var _Kwarrtz$render$Graphics_Render$Round = {ctor: 'Round'};
+var _Kwarrtz$render$Graphics_Render$Bevel = {ctor: 'Bevel'};
+var _Kwarrtz$render$Graphics_Render$Sharp = {ctor: 'Sharp'};
+var _Kwarrtz$render$Graphics_Render$solidStyle = F2(
+	function (color, width) {
+		return {
+			color: color,
+			width: width,
+			cap: _Kwarrtz$render$Graphics_Render$Flat,
+			join: _Kwarrtz$render$Graphics_Render$Sharp,
+			dashing: _elm_lang$core$Native_List.fromArray(
+				[]),
+			dashOffset: 0
+		};
+	});
+var _Kwarrtz$render$Graphics_Render$solid = F3(
+	function (width, color, l) {
+		return A2(
+			_Kwarrtz$render$Graphics_Render$line,
+			l,
+			A2(_Kwarrtz$render$Graphics_Render$solidStyle, color, width));
+	});
+var _Kwarrtz$render$Graphics_Render$dashed = F3(
+	function (width, color, l) {
+		var ls = A2(_Kwarrtz$render$Graphics_Render$solidStyle, color, width);
+		return A2(
+			_Kwarrtz$render$Graphics_Render$line,
+			l,
+			_elm_lang$core$Native_Utils.update(
+				ls,
+				{
+					dashing: _elm_lang$core$Native_List.fromArray(
+						[8, 4])
+				}));
+	});
+var _Kwarrtz$render$Graphics_Render$dotted = F3(
+	function (width, color, l) {
+		var ls = A2(_Kwarrtz$render$Graphics_Render$solidStyle, color, width);
+		return A2(
+			_Kwarrtz$render$Graphics_Render$line,
+			l,
+			_elm_lang$core$Native_Utils.update(
+				ls,
+				{
+					dashing: _elm_lang$core$Native_List.fromArray(
+						[2, 2])
+				}));
+	});
+var _Kwarrtz$render$Graphics_Render$Smooth = {ctor: 'Smooth'};
+var _Kwarrtz$render$Graphics_Render$Texture = F4(
+	function (a, b, c, d) {
+		return {ctor: 'Texture', _0: a, _1: b, _2: c, _3: d};
+	});
+var _Kwarrtz$render$Graphics_Render$textureFillWithBorder = F6(
+	function (width, height, url, borderWidth, borderColor, s) {
+		return A2(
+			_Kwarrtz$render$Graphics_Render$shape,
+			s,
+			{
+				fill: A4(_Kwarrtz$render$Graphics_Render$Texture, url, width, height, 1),
+				border: A2(_Kwarrtz$render$Graphics_Render$solidStyle, borderColor, borderWidth)
+			});
+	});
+var _Kwarrtz$render$Graphics_Render$textureFill = F4(
+	function (width, height, url, s) {
+		return A6(
+			_Kwarrtz$render$Graphics_Render$textureFillWithBorder,
+			width,
+			height,
+			url,
+			0,
+			A3(_elm_lang$core$Color$rgb, 0, 0, 0),
+			s);
+	});
+var _Kwarrtz$render$Graphics_Render$Solid = function (a) {
+	return {ctor: 'Solid', _0: a};
+};
+var _Kwarrtz$render$Graphics_Render$solidFillWithBorder = F4(
+	function (fillColor, borderWidth, borderColor, s) {
+		return A2(
+			_Kwarrtz$render$Graphics_Render$shape,
+			s,
+			{
+				fill: _Kwarrtz$render$Graphics_Render$Solid(fillColor),
+				border: A2(_Kwarrtz$render$Graphics_Render$solidStyle, borderColor, borderWidth)
+			});
+	});
+var _Kwarrtz$render$Graphics_Render$solidFill = F2(
+	function (color, s) {
+		return A4(_Kwarrtz$render$Graphics_Render$solidFillWithBorder, color, 0, color, s);
+	});

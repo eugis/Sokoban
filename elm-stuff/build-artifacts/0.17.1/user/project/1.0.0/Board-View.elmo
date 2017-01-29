@@ -1,0 +1,5 @@
+var _user$project$Board_View$render = function (board) {
+	return _Kwarrtz$render$Graphics_Render$group(
+		_chendrix$elm_matrix$Matrix$flatten(
+			A2(_chendrix$elm_matrix$Matrix$mapWithLocation, _user$project$Component_View$render, board)));
+};

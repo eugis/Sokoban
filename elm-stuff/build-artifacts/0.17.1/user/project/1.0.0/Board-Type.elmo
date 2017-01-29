@@ -1,0 +1,35 @@
+var _user$project$Board_Type$component = F2(
+	function (board, location) {
+		var _p0 = A2(_chendrix$elm_matrix$Matrix$get, location, board);
+		if (_p0.ctor === 'Nothing') {
+			return _user$project$Component_Type$Empty;
+		} else {
+			return _p0._0;
+		}
+	});
+var _user$project$Board_Type$mapWithLocation = F2(
+	function (func, board) {
+		mapWithLocation:
+		while (true) {
+			var _v1 = func,
+				_v2 = board;
+			func = _v1;
+			board = _v2;
+			continue mapWithLocation;
+		}
+	});
+var _user$project$Board_Type$nonEmptyBoardComponents = function (board) {
+	return A2(
+		_elm_lang$core$List$filter,
+		_user$project$Component_Type$notEmpty,
+		_chendrix$elm_matrix$Matrix$flatten(board));
+};
+var _user$project$Board_Type$cellSize = _user$project$Component_Type$size;
+var _user$project$Board_Type$width = function (board) {
+	return _user$project$Board_Type$cellSize * _elm_lang$core$Basics$toFloat(
+		_chendrix$elm_matrix$Matrix$colCount(board));
+};
+var _user$project$Board_Type$height = function (board) {
+	return _user$project$Board_Type$cellSize * _elm_lang$core$Basics$toFloat(
+		_chendrix$elm_matrix$Matrix$rowCount(board));
+};
