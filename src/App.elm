@@ -2,16 +2,22 @@ port module App exposing (..)
 
 import Html exposing (Html)
 import Html.App
-import Action.Type exposing (Action(..))
+import Action.Type exposing (..)
 import Level.Type exposing (..)
 import Level.View exposing (render)
 import GameState exposing (..)
+import Keyboard exposing (..)
+
+-- TODO: this should be removed when works properly
+-- an get level from a predifined way
+import Level.Mock exposing (..)
 
 init : (SokobanState, Cmd Action)
 init = (InLevel {
-                board = Level.Type.defaultBoard,
-                boxes = Level.Type.defaultBoxes,
-                player = Level.Type.defaultPlayerLocation
+                board = Level.Mock.defaultBoard,
+                boxes = Level.Mock.defaultBoxes,
+                player = Level.Mock.defaultPlayerLocation,
+                state = WaitingForMove
                 },
         Cmd.none)
 
@@ -23,10 +29,13 @@ view gameState =
 update : Action -> SokobanState -> (SokobanState, Cmd Action)
 update action gameState =
     case action of
-        NoOp -> ( gameState, Cmd.none )
+        KeyboardInput input -> ( updateState input gameState, Cmd.none )
 
 subscriptions : SokobanState -> Sub Action
-subscriptions model = Sub.none
+subscriptions model =
+      Sub.batch
+        [ Keyboard.downs Action.Type.keyboardInput
+        ]
 
  -- Main is usted to start the program
 main : Program Never

@@ -1,9 +1,13 @@
-module Component.Type exposing (Component(..), notEmpty, size, isGoal)
+module Component.Type exposing (Component(..), notEmpty, size, isGoal,
+                                moveBoxes)
+
+import Action.Type exposing (updateLocation)
+import Matrix exposing (..)
 
 type Component = Box | Floor | Wall | Goal | Player | Empty
 
 size: Float
-size = 30
+size = 40
 
 isMovable: Component -> Bool
 isMovable component =
@@ -30,3 +34,10 @@ isGoal component =
   case component of
     Goal -> True
     otherwise -> False
+
+moveBoxes: List Location -> Location -> Action.Type.Direction -> List Location
+moveBoxes boxes location direction =
+    List.map (\l -> if location == l
+               then updateLocation l direction
+               else l)
+        boxes

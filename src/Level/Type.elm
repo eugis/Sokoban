@@ -1,42 +1,57 @@
-module Level.Type exposing (Level, defaultBoard, defaultPlayerLocation,
-                            defaultBoxes, validateWin)
+module Level.Type exposing (Level, validateWin, LevelState(..), move)
 
-import Board.Type exposing (..)
-import Component.Type exposing (Component(..), isGoal)
+import Board.Type exposing (Board, component)
+import Component.Type exposing (Component(..), isGoal, moveBoxes)
 import Matrix exposing (..)
 import List exposing (..)
+import Action.Type exposing (KeyboardInput(..), updateLocation)
 
 type alias Level = {
                     board: Board,
                     boxes: List Matrix.Location,
-                    player: Matrix.Location
+                    player: Matrix.Location,
+                    state: LevelState
                     }
 
--- move: Level -> Direction -> Level
--- move level direction =
+type LevelState = Win | GameOver | WaitingForMove
 
-validateWin: Level -> Bool
-validateWin level = List.map (\l -> component level.board l
-                                    |> Component.Type.isGoal) level.boxes
-                      |> foldr (&&) True
+validateWin: Board -> List Location -> Bool
+validateWin board boxes = List.map (\l -> component board l
+                                    |> Component.Type.isGoal) boxes
+                          |> foldr (&&) True
 
-defaultBoard: Board
-defaultBoard = matrix 2 3 (\location -> asd location)
+move: Action.Type.Direction -> Level -> Level
+move direction level =
+    if (isValidMovement (Debug.log "direction" direction) level)
+    then movePlayer direction level
+    else level
 
+movePlayer: Action.Type.Direction -> Level -> Level
+movePlayer direction level =
+    let
+        updatedPlayer = updateLocation level.player direction
+        updatedBoxes = moveBoxes level.boxes updatedPlayer direction
+        newLevelState = updateLevelState level.board updatedBoxes updatedPlayer
+    in {
+        board = level.board,
+        boxes = updatedBoxes,
+        player = updatedPlayer,
+        state = newLevelState
+        }
 
-defaultPlayerLocation: Matrix.Location
-defaultPlayerLocation = loc 0 0
+updateLevelState: Board -> List Location -> Location -> LevelState
+updateLevelState board boxes player =
+    if (validateWin board boxes)
+    then Win
+    else
+      if (validateGameOver board boxes player)
+      then GameOver
+      else WaitingForMove
 
-defaultBoxes: List Matrix.Location
-defaultBoxes = [loc 0 1]
+-- TODO: should be implemented
+isValidMovement: Action.Type.Direction -> Level -> Bool
+isValidMovement direction level = True
 
-asd: Location -> Component
-asd location = if ((row location) == 0 && (col location) == 0)
-              then Player
-              else
-                if ((row location) == 0 && (col location) == 1)
-                then Box
-                else
-                  if ((row location) == 0 && (col location) == 2)
-                  then Goal
-                  else Floor
+-- TODO: should be implemented
+validateGameOver: Board -> List Location -> Location -> Bool
+validateGameOver board boxes player = False

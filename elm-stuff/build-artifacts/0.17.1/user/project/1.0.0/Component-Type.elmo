@@ -1,3 +1,12 @@
+var _user$project$Component_Type$moveBoxes = F3(
+	function (boxes, location, direction) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (l) {
+				return _elm_lang$core$Native_Utils.eq(location, l) ? A2(_user$project$Action_Type$updateLocation, l, direction) : l;
+			},
+			boxes);
+	});
 var _user$project$Component_Type$isGoal = function (component) {
 	var _p0 = component;
 	if (_p0.ctor === 'Goal') {
@@ -36,7 +45,7 @@ var _user$project$Component_Type$isMovable = function (component) {
 			return false;
 	}
 };
-var _user$project$Component_Type$size = 30;
+var _user$project$Component_Type$size = 40;
 var _user$project$Component_Type$Empty = {ctor: 'Empty'};
 var _user$project$Component_Type$Player = {ctor: 'Player'};
 var _user$project$Component_Type$Goal = {ctor: 'Goal'};

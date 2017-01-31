@@ -1,1 +1,59 @@
-var _user$project$Action_Type$NoOp = {ctor: 'NoOp'};
+var _user$project$Action_Type$direction = function (keyboardInput) {
+	var _p0 = keyboardInput;
+	switch (_p0.ctor) {
+		case 'Up':
+			return {ctor: '_Tuple2', _0: -1, _1: 0};
+		case 'Down':
+			return {ctor: '_Tuple2', _0: 1, _1: 0};
+		case 'Left':
+			return {ctor: '_Tuple2', _0: 0, _1: -1};
+		case 'Right':
+			return {ctor: '_Tuple2', _0: 0, _1: 1};
+		default:
+			return {ctor: '_Tuple2', _0: 0, _1: 0};
+	}
+};
+var _user$project$Action_Type$y = function (_p1) {
+	var _p2 = _p1;
+	return _p2._1;
+};
+var _user$project$Action_Type$x = function (_p3) {
+	var _p4 = _p3;
+	return _p4._0;
+};
+var _user$project$Action_Type$updateLocation = F2(
+	function (location, direction) {
+		return A2(
+			_chendrix$elm_matrix$Matrix$loc,
+			_chendrix$elm_matrix$Matrix$row(location) + _user$project$Action_Type$x(direction),
+			_chendrix$elm_matrix$Matrix$col(location) + _user$project$Action_Type$y(direction));
+	});
+var _user$project$Action_Type$dir = F2(
+	function (x, y) {
+		return {ctor: '_Tuple2', _0: x, _1: y};
+	});
+var _user$project$Action_Type$KeyboardInput = function (a) {
+	return {ctor: 'KeyboardInput', _0: a};
+};
+var _user$project$Action_Type$None = {ctor: 'None'};
+var _user$project$Action_Type$Enter = {ctor: 'Enter'};
+var _user$project$Action_Type$Esc = {ctor: 'Esc'};
+var _user$project$Action_Type$Right = {ctor: 'Right'};
+var _user$project$Action_Type$Left = {ctor: 'Left'};
+var _user$project$Action_Type$Down = {ctor: 'Down'};
+var _user$project$Action_Type$Up = {ctor: 'Up'};
+var _user$project$Action_Type$keyboardInput = function (keyCode) {
+	var _p5 = keyCode;
+	switch (_p5) {
+		case 37:
+			return _user$project$Action_Type$KeyboardInput(_user$project$Action_Type$Left);
+		case 38:
+			return _user$project$Action_Type$KeyboardInput(_user$project$Action_Type$Up);
+		case 39:
+			return _user$project$Action_Type$KeyboardInput(_user$project$Action_Type$Right);
+		case 40:
+			return _user$project$Action_Type$KeyboardInput(_user$project$Action_Type$Down);
+		default:
+			return _user$project$Action_Type$KeyboardInput(_user$project$Action_Type$None);
+	}
+};
