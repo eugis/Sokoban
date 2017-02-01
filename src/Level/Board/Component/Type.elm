@@ -1,5 +1,5 @@
 module Component.Type exposing (Component(..), notEmpty, size, isGoal,
-                                moveBoxes)
+                                moveBoxes, isOccupable, isBox)
 
 import Action.Type exposing (updateLocation)
 import Matrix exposing (..)
@@ -33,6 +33,12 @@ isGoal: Component -> Bool
 isGoal component =
   case component of
     Goal -> True
+    otherwise -> False
+
+isBox: Component -> Bool
+isBox component =
+  case component of
+    Box -> True
     otherwise -> False
 
 moveBoxes: List Location -> Location -> Action.Type.Direction -> List Location
