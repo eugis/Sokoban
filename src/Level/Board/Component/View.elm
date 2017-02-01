@@ -28,16 +28,14 @@ view component =
 box:Form Action
 box =
   group
-    [ floor'
-    , square (Component.Type.size - 3) |> solidFill Color.orange
+    [ square (Component.Type.size - 3) |> solidFill Color.orange
     , square (Component.Type.size - 10) |> solidFill Color.lightOrange
     ]
 
 player: Form Action
 player =
   group
-    [ floor'
-    , circle ((Component.Type.size / 2) - 3) |> solidFill Color.blue
+    [ circle ((Component.Type.size / 2) - 3) |> solidFill Color.blue
     , circle ((Component.Type.size / 2) - 6) |> solidFill Color.lightBlue
     ]
 

@@ -25,7 +25,6 @@ var _user$project$Component_View$goal = _Kwarrtz$render$Graphics_Render$group(
 var _user$project$Component_View$player = _Kwarrtz$render$Graphics_Render$group(
 	_elm_lang$core$Native_List.fromArray(
 		[
-			_user$project$Component_View$floor$,
 			A2(
 			_Kwarrtz$render$Graphics_Render$solidFill,
 			_elm_lang$core$Color$blue,
@@ -38,7 +37,6 @@ var _user$project$Component_View$player = _Kwarrtz$render$Graphics_Render$group(
 var _user$project$Component_View$box = _Kwarrtz$render$Graphics_Render$group(
 	_elm_lang$core$Native_List.fromArray(
 		[
-			_user$project$Component_View$floor$,
 			A2(
 			_Kwarrtz$render$Graphics_Render$solidFill,
 			_elm_lang$core$Color$orange,
