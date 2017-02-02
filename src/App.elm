@@ -7,6 +7,8 @@ import Level.Type exposing (..)
 import Level.View exposing (render)
 import GameState exposing (..)
 import Keyboard exposing (..)
+import Time exposing (..)
+import Stats.Type exposing (..)
 
 -- TODO: this should be removed when works properly
 -- an get level from a predifined way
@@ -17,7 +19,8 @@ init = (InLevel {
                 board = Level.Mock.defaultBoard,
                 boxes = Level.Mock.defaultBoxes,
                 player = Level.Mock.defaultPlayerLocation,
-                state = WaitingForMove
+                state = WaitingForMove,
+                stats = Stats.Type.init
                 },
         Cmd.none)
 
@@ -29,12 +32,14 @@ view gameState =
 update : Action -> SokobanState -> (SokobanState, Cmd Action)
 update action gameState =
     case action of
-        KeyboardInput input -> ( updateState input gameState, Cmd.none )
+        KeyboardInput input -> ( updateStateWithKeyboard input gameState, Cmd.none )
+        Tick time -> ( updateStateWithTime time gameState, Cmd.none)
 
 subscriptions : SokobanState -> Sub Action
 subscriptions model =
       Sub.batch
         [ Keyboard.downs Action.Type.keyboardInput
+        , Time.every second Tick
         ]
 
  -- Main is usted to start the program

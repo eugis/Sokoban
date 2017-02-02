@@ -11,7 +11,7 @@ var _user$project$Component_View$empty$ = _user$project$Component_View$coloredSq
 var _user$project$Component_View$wall = _user$project$Component_View$coloredSquard(_elm_lang$core$Color$charcoal);
 var _user$project$Component_View$floor$ = A2(
 	_Kwarrtz$render$Graphics_Render$solidFill,
-	A4(_elm_lang$core$Color$rgba, 191, 191, 191, 0.6),
+	_user$project$General_Color$floor$,
 	_user$project$Component_View$square(_user$project$Component_Type$size));
 var _user$project$Component_View$goal = _Kwarrtz$render$Graphics_Render$group(
 	_elm_lang$core$Native_List.fromArray(
@@ -19,7 +19,7 @@ var _user$project$Component_View$goal = _Kwarrtz$render$Graphics_Render$group(
 			_user$project$Component_View$floor$,
 			A2(
 			_Kwarrtz$render$Graphics_Render$solidFill,
-			A3(_elm_lang$core$Color$rgb, 230, 151, 141),
+			_user$project$General_Color$goal,
 			_Kwarrtz$render$Graphics_Render$circle(_user$project$Component_Type$size / 6))
 		]));
 var _user$project$Component_View$player = _Kwarrtz$render$Graphics_Render$group(

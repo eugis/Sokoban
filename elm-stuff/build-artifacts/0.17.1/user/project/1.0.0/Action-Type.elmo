@@ -32,6 +32,9 @@ var _user$project$Action_Type$dir = F2(
 	function (x, y) {
 		return {ctor: '_Tuple2', _0: x, _1: y};
 	});
+var _user$project$Action_Type$Tick = function (a) {
+	return {ctor: 'Tick', _0: a};
+};
 var _user$project$Action_Type$KeyboardInput = function (a) {
 	return {ctor: 'KeyboardInput', _0: a};
 };

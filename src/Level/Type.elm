@@ -1,4 +1,5 @@
-module Level.Type exposing (Level, validateWin, LevelState(..), move)
+module Level.Type exposing (Level, validateWin, LevelState(..), move,
+                            updateTime)
 
 import Board.Type exposing (Board, component)
 import Component.Type exposing (Component(..), isGoal, moveBoxes, isOccupable,
@@ -7,19 +8,29 @@ import Matrix exposing (..)
 import List exposing (..)
 import Action.Type exposing (KeyboardInput(..), updateLocation)
 import Guards exposing (..)
+import Stats.Type exposing (..)
+import Time exposing (..)
 
-type alias Level = {
-                    board: Board,
-                    boxes: List Matrix.Location,
-                    player: Matrix.Location,
-                    state: LevelState
-                    }
+type alias Level = { board: Board
+                   , boxes: List Matrix.Location
+                   , player: Matrix.Location
+                   , state: LevelState
+                   , stats: Stats
+                   }
 
 type LevelState = Win | GameOver | WaitingForMove
 
+updateTime: Time -> Level -> Level
+updateTime time level = { board = level.board
+                        , boxes = level.boxes
+                        , player = level.player
+                        , state = level.state
+                        , stats = (Stats.Type.updateTime time level.stats)
+                        }
+
 move: Action.Type.Direction -> Level -> Level
 move direction level =
-    if (isValidDirectionMovement (Debug.log "direction" direction) level)
+    if (isValidDirectionMovement direction level)
     then movePlayer direction level
     else level
 
@@ -29,16 +40,18 @@ movePlayer direction level =
         updatedPlayer = updateLocation level.player direction
         updatedBoxes = moveBoxes level.boxes updatedPlayer direction
         newLevelState = updateLevelState level.board updatedBoxes updatedPlayer
+        pushes = updatedBoxes /= level.boxes
     in {
         board = level.board,
         boxes = updatedBoxes,
         player = updatedPlayer,
-        state = newLevelState
+        state = newLevelState,
+        stats = incrementStats level.stats pushes
         }
 
 updateLevelState: Board -> List Location -> Location -> LevelState
 updateLevelState board boxes player =
-    if (Debug.log "validateWin" (validateWin board boxes))
+    if (validateWin board boxes)
     then Win
     else
       if (validateGameOver board boxes player)
@@ -50,8 +63,8 @@ updateLevelState board boxes player =
 isValidDirectionMovement: Action.Type.Direction -> Level -> Bool
 isValidDirectionMovement direction level =
     let
-      updatedPlayer = (Debug.log "updatePlayer" (updateLocation level.player direction))
-      posibleUpdatedBoxPosition = (Debug.log "posibleUpdatedBoxPosition" (updateLocation updatedPlayer direction))
+      updatedPlayer = (updateLocation level.player direction)
+      posibleUpdatedBoxPosition = (updateLocation updatedPlayer direction)
     in isValidLocationMovement updatedPlayer posibleUpdatedBoxPosition level
 
 isValidLocationMovement: Location -> Location -> Level -> Bool

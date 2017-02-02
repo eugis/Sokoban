@@ -2,8 +2,9 @@ module Action.Type exposing (..)
 
 import Keyboard exposing (..)
 import Matrix exposing (..)
+import Time exposing (..)
 
-type Action = KeyboardInput KeyboardInput
+type Action = KeyboardInput KeyboardInput | Tick Time
 
 type KeyboardInput = Up | Down | Left | Right | Esc | Enter | None
 

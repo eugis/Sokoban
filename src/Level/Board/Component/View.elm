@@ -5,6 +5,7 @@ import Graphics.Render exposing (..)
 import Component.Type exposing (Component(..), size)
 import Action.Type exposing (..)
 import Matrix exposing (..)
+import General.Color exposing (..)
 
 
 render: Location -> Component -> Form Action
@@ -40,23 +41,20 @@ player =
     ]
 
 floor': Form Action
-floor' =
-  square Component.Type.size |> solidFill (Color.rgba 191 191 191 0.6)
+floor' = square Component.Type.size |> solidFill General.Color.floor'
 
 goal: Form Action
 goal =
   group
     [ floor'
-    , circle (Component.Type.size / 6) |> solidFill (Color.rgb 230 151 141)
+    , circle (Component.Type.size / 6) |> solidFill General.Color.goal
     ]
 
 wall: Form Action
-wall =
-  coloredSquard Color.charcoal
+wall = coloredSquard Color.charcoal
 
 empty': Form Action
-empty' =
-  coloredSquard Color.lightGrey
+empty' = coloredSquard Color.lightGrey
 
 coloredSquard: Color.Color -> Form Action
 coloredSquard color = square Component.Type.size |> solidFill color
