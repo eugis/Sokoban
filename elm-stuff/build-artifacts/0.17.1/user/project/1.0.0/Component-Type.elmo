@@ -59,4 +59,6 @@ var _user$project$Component_Type$Player = {ctor: 'Player'};
 var _user$project$Component_Type$Goal = {ctor: 'Goal'};
 var _user$project$Component_Type$Wall = {ctor: 'Wall'};
 var _user$project$Component_Type$Floor = {ctor: 'Floor'};
-var _user$project$Component_Type$Box = {ctor: 'Box'};
+var _user$project$Component_Type$Box = function (a) {
+	return {ctor: 'Box', _0: a};
+};

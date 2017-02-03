@@ -17,7 +17,7 @@ render location component =
 view: Component -> Form Action
 view component =
   case component of
-    Box     -> box
+    Box inGoal -> box inGoal
     Floor   -> floor'
     Wall    -> wall
     Goal    -> goal
@@ -26,18 +26,20 @@ view component =
 
  -- TODO: the logic to draw could be modularize into
  --       fucntions to avoid code repetation
-box:Form Action
-box =
+box: Bool -> Form Action
+box inGoal =
+  let boxColor = if inGoal then General.Color.boxWithGoal else General.Color.box
+  in
   group
-    [ square (Component.Type.size - 3) |> solidFill Color.orange
-    , square (Component.Type.size - 10) |> solidFill Color.lightOrange
+    [ square (Component.Type.size - 3) |> solidFill General.Color.boxBorder
+    , square (Component.Type.size - 10) |> solidFill boxColor
     ]
 
 player: Form Action
 player =
   group
-    [ circle ((Component.Type.size / 2) - 3) |> solidFill Color.blue
-    , circle ((Component.Type.size / 2) - 6) |> solidFill Color.lightBlue
+    [ circle ((Component.Type.size / 2) - 3) |> solidFill General.Color.playerBorder
+    , circle ((Component.Type.size / 2) - 6) |> solidFill General.Color.player
     ]
 
 floor': Form Action
@@ -51,7 +53,7 @@ goal =
     ]
 
 wall: Form Action
-wall = coloredSquard Color.charcoal
+wall = coloredSquard General.Color.wall
 
 empty': Form Action
 empty' = coloredSquard Color.lightGrey

@@ -9,6 +9,7 @@ import Action.Type exposing (Action)
 import Component.View exposing (render)
 import Component.Type exposing (Component(..))
 import Stats.View exposing (render)
+import Board.Type exposing (component)
 
 render: Level -> Html Action
 render level = group
@@ -22,8 +23,10 @@ render level = group
               |> svg 1024 640 -- monitor resolution??
 
 renderBoxes: Level -> Form Action
-renderBoxes level = List.map (\l -> Component.View.render l Box) level.boxes
-                    |> group
+renderBoxes level =
+  List.map (\l -> Component.View.render l (Box (component level.board l -- this function should be in the level Type and only one time
+                                      |> Component.Type.isGoal))) level.boxes
+           |> group
 
 --TODO: this should be removed un change view in the update
 renderState: Level.Type.LevelState -> Form Action

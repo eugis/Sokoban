@@ -8,7 +8,7 @@ var _user$project$Component_View$coloredSquard = function (color) {
 		_user$project$Component_View$square(_user$project$Component_Type$size));
 };
 var _user$project$Component_View$empty$ = _user$project$Component_View$coloredSquard(_elm_lang$core$Color$lightGrey);
-var _user$project$Component_View$wall = _user$project$Component_View$coloredSquard(_elm_lang$core$Color$charcoal);
+var _user$project$Component_View$wall = _user$project$Component_View$coloredSquard(_user$project$General_Color$wall);
 var _user$project$Component_View$floor$ = A2(
 	_Kwarrtz$render$Graphics_Render$solidFill,
 	_user$project$General_Color$floor$,
@@ -27,30 +27,33 @@ var _user$project$Component_View$player = _Kwarrtz$render$Graphics_Render$group(
 		[
 			A2(
 			_Kwarrtz$render$Graphics_Render$solidFill,
-			_elm_lang$core$Color$blue,
+			_user$project$General_Color$playerBorder,
 			_Kwarrtz$render$Graphics_Render$circle((_user$project$Component_Type$size / 2) - 3)),
 			A2(
 			_Kwarrtz$render$Graphics_Render$solidFill,
-			_elm_lang$core$Color$lightBlue,
+			_user$project$General_Color$player,
 			_Kwarrtz$render$Graphics_Render$circle((_user$project$Component_Type$size / 2) - 6))
 		]));
-var _user$project$Component_View$box = _Kwarrtz$render$Graphics_Render$group(
-	_elm_lang$core$Native_List.fromArray(
-		[
-			A2(
-			_Kwarrtz$render$Graphics_Render$solidFill,
-			_elm_lang$core$Color$orange,
-			_user$project$Component_View$square(_user$project$Component_Type$size - 3)),
-			A2(
-			_Kwarrtz$render$Graphics_Render$solidFill,
-			_elm_lang$core$Color$lightOrange,
-			_user$project$Component_View$square(_user$project$Component_Type$size - 10))
-		]));
+var _user$project$Component_View$box = function (inGoal) {
+	var boxColor = inGoal ? _user$project$General_Color$boxWithGoal : _user$project$General_Color$box;
+	return _Kwarrtz$render$Graphics_Render$group(
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_Kwarrtz$render$Graphics_Render$solidFill,
+				_user$project$General_Color$boxBorder,
+				_user$project$Component_View$square(_user$project$Component_Type$size - 3)),
+				A2(
+				_Kwarrtz$render$Graphics_Render$solidFill,
+				boxColor,
+				_user$project$Component_View$square(_user$project$Component_Type$size - 10))
+			]));
+};
 var _user$project$Component_View$view = function (component) {
 	var _p0 = component;
 	switch (_p0.ctor) {
 		case 'Box':
-			return _user$project$Component_View$box;
+			return _user$project$Component_View$box(_p0._0);
 		case 'Floor':
 			return _user$project$Component_View$floor$;
 		case 'Wall':
