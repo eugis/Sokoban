@@ -18,8 +18,8 @@ render level = group
                   , Stats.View.render level.stats
                   , renderState level.state
                   ]
-              |> position (0, 0)
-              |> svg 800 600 -- monitor resolution??
+              |> position (-100, -100)
+              |> svg 1024 640 -- monitor resolution??
 
 renderBoxes: Level -> Form Action
 renderBoxes level = List.map (\l -> Component.View.render l Box) level.boxes
@@ -30,6 +30,6 @@ renderState: Level.Type.LevelState -> Form Action
 renderState levelState =
             case levelState of
                 Level.Type.Win -> plain 40 "'Orbitron', sans-serif" Color.orange "You win!"
-                                      |> position (-200, -200)
+                                      |> position (-150, -150)
                 otherwise -> plain 40 "'Orbitron', sans-serif" Color.orange ""
                           |> position (-200, -200)
