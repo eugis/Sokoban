@@ -1,25 +1,21 @@
 module Stats.View exposing (render)
 
---import Html exposing (..)
---import Html.Attributes exposing (..)
+import Html exposing (..)
+import Html.Attributes exposing (..)
 import Graphics.Render exposing (..)
 import Action.Type exposing (..)
 import General.Style exposing (..)
 import Time exposing (..)
-import Stats.Type exposing (Stats)
+import Stats.Type exposing (Stats, timeString, movesString, pushesString)
 import Color
+import General.Render exposing (..)
 
---render: Stats -> Form Action
---render stats =
---  Html.div [General.Style.stats] [
---    Html.text (
---      "moves " ++ (toString stats.moves) ++  ", " ++
---      "pushes " ++ (toString stats.pushes) ++ ", " ++
---      "time " ++ (toString stats.time)
---    ) -- should be moved to toString into stats type
---  ]
---  |> html
+render: Stats -> Html Action
+render stats =   Html.div [General.Style.stats]
+                          [ renderItem (movesString stats)
+                          , renderItem (pushesString stats)
+                          , renderItem (timeString stats)
+                          ]
 
-render: Stats -> Form Action
-render stats = plain 30 "'Orbitron', sans-serif" Color.black (toString stats)
-               |> position (-100, -100)
+renderItem: String -> Html Action
+renderItem stat = Html.div [General.Style.item] [(Html.text stat)]

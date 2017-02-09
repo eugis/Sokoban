@@ -3,8 +3,12 @@ module Action.Type exposing (..)
 import Keyboard exposing (..)
 import Matrix exposing (..)
 import Time exposing (..)
+import Stats.Type exposing (..)
 
-type Action = KeyboardInput KeyboardInput | Tick Time
+type Action = KeyboardInput KeyboardInput
+            | Tick Time
+            | BackMenu Stats
+            | NextLevel Int
 
 type KeyboardInput = Up | Down | Left | Right | Esc | Enter | None
 

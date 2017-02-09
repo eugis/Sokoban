@@ -4,9 +4,10 @@ import Level.Type exposing (Level, move, updateTime)
 import Action.Type exposing (..)
 import Debug exposing (..)
 import Time exposing (..)
+import Stats.Type exposing (Stats)
 
 -- type alias SokobanState = Menu | Help | Level | Position
-type SokobanState = InLevel Level
+type SokobanState = InLevel Level | Win Stats
 
 type alias Help = {
                     message: String,
@@ -21,20 +22,28 @@ updateStateWithKeyboard: KeyboardInput -> SokobanState -> SokobanState
 updateStateWithKeyboard keyboardInput state =
   case state of
     InLevel level -> updateLevelWithKeyboard keyboardInput level
+    otherwise -> state
 
 updateStateWithTime: Time -> SokobanState -> SokobanState
 updateStateWithTime time state =
   case state of
     InLevel level -> updateLevelWithTime time level
-    --otherwise -> state
+    otherwise -> state
 
 updateLevelWithKeyboard: KeyboardInput -> Level -> SokobanState
 updateLevelWithKeyboard keyboardInput level =
   case keyboardInput of
      Esc -> InLevel level --TODO: shold show the main menu when implemented
      None -> InLevel level -- As it is not a valid key returns the same state
-     Enter -> InLevel level -- TODO: check if it will be used for something. If not remove
-     otherwise -> InLevel (move (direction keyboardInput) level)
+     Enter -> InLevel level -- TODO: should restart level
+     otherwise -> newState (move (direction keyboardInput) level)
 
 updateLevelWithTime: Time -> Level -> SokobanState
 updateLevelWithTime time level = InLevel (updateTime time level)
+
+-- Returns a new new state depending on the levelState
+newState: Level -> SokobanState
+newState level =
+  case level.state of
+    Level.Type.Win -> Win level.stats
+    otherwise -> InLevel level

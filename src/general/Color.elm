@@ -40,3 +40,6 @@ buttonBackground = (Color.rgba 255 240 245 0.4)
 
 buttonBackgroundHex: String
 buttonBackgroundHex = "#8b8682" --Update later
+
+backgroundHex: String
+backgroundHex = "#242c2d"

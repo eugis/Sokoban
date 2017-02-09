@@ -9,7 +9,8 @@
         "./src/Level",
         "./src/Level/Board",
         "./src/Level/Information",
-        "./src/Level/Component"
+        "./src/Level/Component",
+        "./src/panels"
     ],
     "exposed-modules": [],
     "dependencies": {

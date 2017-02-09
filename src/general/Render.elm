@@ -7,21 +7,21 @@ import Stats.Type exposing (..)
 
 layout: List (Html msg) -> Html msg
 layout children =
-  Html.div [Style.layout] children
+  Html.div [General.Style.layout] children
 
-background: Html msg
-background =
-  Html.div [Style.background] []
+background: String -> Html msg
+background color =
+  Html.div [General.Style.background color] []
 
 menu: String -> Html msg
 menu message =
-  Html.div [Style.menu] [text message]
+  Html.div [General.Style.menu] [text message]
 
 
 title: String -> Html msg
 title message =
-    Html.div [Style.title] [text message]
+    Html.div [General.Style.title] [text message]
 
 reset: String -> Html msg
 reset message =
-  Html.div [Style.reset] [text message]
+  Html.div [General.Style.reset] [text message]
