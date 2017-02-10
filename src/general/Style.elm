@@ -3,7 +3,7 @@ module General.Style exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import General.Colors exposing (toRgbaString, buttonBackground, titleColor,
-                                textColor, panelBackground)
+                                textColor, panelBackground, panelBorder)
 import Utilities exposing (toPixel, toPercentage)
 
 background: String -> Attribute msg
@@ -19,38 +19,38 @@ background color = style
 
 layout: Attribute msg
 layout = style
+    [ ("position", "fixed")
+    , ("display", "flex")
+    , ("align-items", "center")
+    , ("justify-content", "center")
+    , ("height", "100%")
+    , ("width", "100%")
+    ]
+
+layoutVertical: Attribute msg
+layoutVertical = style
     [ ("position", "relative")
     , ("display", "flex")
     , ("align-items", "center")
     , ("justify-content", "center")
     , ("height", "100%")
+    , ("width", "100%")
+    , ("flex-direction", "column")
     ]
 
-menuTitle: Attribute msg
-menuTitle = style
+title: Float -> Attribute msg
+title size = style
   [ ("position", "relative")
   , ("color", toRgbaString titleColor)
   , ("font-family", "'Verdana', Geneva, sans-serif")
-  , ("font-size", "6em")
-  , ("text-align", "center")
-  , ("padding-top", "16px")
-  ]
-
-title: Attribute msg
-title = style
-  [ ("position", "relative")
-  , ("color", toRgbaString titleColor)
-  , ("font-family", "'Verdana', Geneva, sans-serif")
-  , ("font-size", "5em")
+  , ("font-size", toString size ++ "em")
   , ("text-align", "center")
   , ("padding-top", "16px")
   ]
 
 stats: Attribute msg
-stats = style [ ("position", "fixed")
-              , ("height", "55px")
+stats = style [ ("position", "relative")
               , ("width", "100%")
-              , ("bottom", "0px")
               , ("background-color", toRgbaString panelBackground)
               , ("color", toRgbaString textColor)
               , ("font-family", "'Orbitron', sans-serif")
@@ -61,41 +61,58 @@ stats = style [ ("position", "fixed")
               , ("text-transform", "capitalize")
               ]
 
-completedStats: Attribute msg
-completedStats = style [ ("position", "relative")
-              , ("width", "100%")
-              , ("color", toRgbaString textColor)
-              , ("font-family", "'Orbitron', sans-serif")
-              , ("font-size", "2em")
-              , ("text-align", "center")
-              , ("display", "flex")
-              , ("justify-content", "space-around")
-              , ("text-transform", "capitalize")
-              ]
+statsEndPosition: Attribute msg
+statsEndPosition = style [ ("align-self", "flex-end")
+                         , ("flex-grow", "0.75")
+                         ]
 
-board: Float -> Float -> Bool -> Attribute msg
-board width height inPixel =
-  let
-    formattedWidth = if inPixel then (toPixel width) else (toPercentage width)
-    formattedHeight = if inPixel then (toPixel height) else (toPercentage height)
-  in
-    style [ ("position", "relative")
-          , ("background-color", "#ffffff")
-          , ("width", formattedWidth)
-          , ("height", formattedHeight)
-          ]
+board: Float -> Float -> Attribute msg
+board width height = style [ ("position", "relative")
+                           , ("width", (toPixel width))
+                           , ("height", (toPixel height))
+                           , ("align-self", "center")
+                           ]
 
 basePanel: Attribute msg
 basePanel = style [ ("position", "relative")
                   , ("background-color", toRgbaString panelBackground)
                   , ("width", "60%")
                   , ("height", "400px")
-                  , ("border", "15px solid #ffe4e1")
+                  , ("border", "15px solid " ++ toRgbaString panelBorder)
                   , ("padding", "8px")
                   , ("display", "flex")
                   , ("justify-content", "space-around")
                   , ("flex-direction", "column")
                   ]
+
+buttonStyle: Attribute msg
+buttonStyle = style [ ("font-size", "1em")
+                    , ("height", "50px")
+                    , ("padding-top", "16px")
+                    , ("background-color", toRgbaString buttonBackground)
+                    ]
+
+topButtonStyle: Attribute msg
+topButtonStyle = style [ ("font-size", "1.25em") ]
+
+generalButtonStyle: Attribute msg
+generalButtonStyle = style [ ("flex-grow", "1")
+                       , ("max-width", "30%")
+                       , ("align-self", "center")
+                       , ("justify-content", "center")
+                       , ("color", toRgbaString titleColor)
+                       , ("font-family", "Lucida Console', Monaco, monospace")
+                       , ("text-align", "center")
+                       , ("text-transform", "uppercase")
+                       ]
+row: Attribute msg
+row = style [ ("flex-grow", "1")
+            , ("max-height", "50%")
+            , ("width", "100%")
+            , ("align-self", "center")
+            , ("display", "flex")
+            , ("justify-content", "center")
+            ]
 
 item: Attribute msg
 item = style [ ("flex-grow", "1")
@@ -103,27 +120,47 @@ item = style [ ("flex-grow", "1")
              , ("align-self", "center")
              ]
 
-buttonStyle: Attribute msg
-buttonStyle = style [ ("flex-grow", "1")
-                    , ("padding-top", "16px")
-                    , ("background-color", toRgbaString buttonBackground)
-                    , ("max-width", "30%")
-                    , ("height", "50px")
-                    , ("align-self", "center")
-                    , ("justify-content", "center")
-                    , ("color", toRgbaString titleColor)
-                    , ("font-family", "Lucida Console', Monaco, monospace")
-                    , ("font-size", "0.9em")
-                    , ("text-align", "center")
-                    , ("text-transform", "uppercase")
-                    ]
+topItem: Attribute msg
+topItem = style [ ("flex-grow", "1")
+                , ("max-width", "30%")
+                , ("height", "100%")
+                , ("align-self", "center")
+                , ("display", "flex")
+                , ("justify-content", "flex-end")
+                ]
 
-row: Attribute msg
-row = style [ ("flex-grow", "1")
-            , ("max-height", "50%")
-            , ("width", "100%")
-            , ("align-self", "center")
-            , ("display", "flex")
-            , ("align-self", "center")
-            , ("justify-content", "center")
-            ]
+levelMainPanel: Attribute msg
+levelMainPanel = style [ ("flex-grow", "8")
+                       , ("max-height", "100%")
+                       , ("width", "100%")
+                       , ("align-self", "center")
+                       , ("display", "flex")
+                       , ("align-self", "center")
+                       , ("justify-content", "center")
+                       ]
+
+topBar: Attribute msg
+topBar = style [ ("position", "relative")
+               , ("width", "100%")
+               , ("height", "50px")
+               , ("background-color", toRgbaString panelBackground)
+               , ("font-family", "'Verdana', Geneva, sans-serif")
+               , ("text-align", "center")
+               , ("display", "flex")
+               , ("justify-content", "space-around")
+               , ("text-transform", "capitalize")
+               , ("align-self", "flex-start")
+               , ("flex-grow", "1")
+               ]
+
+topTitles: Float -> Int -> Attribute msg
+topTitles size growth = style
+    [ ("position", "relative")
+    , ("color", toRgbaString titleColor)
+    , ("font-family", "'Verdana', Geneva, sans-serif")
+    , ("font-size", toString size ++ "em")
+    , ("text-align", "center")
+    , ("padding-top", "8px")
+    , ("flex-grow", toString growth)
+    , ("self-align", "center")
+    ]

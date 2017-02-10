@@ -7,7 +7,7 @@ import Matrix exposing (..)
 type Component = Box Bool | Floor | Wall | Goal | Player | Empty
 
 size: Float
-size = 40
+size = 35
 
 isMovable: Component -> Bool
 isMovable component =

@@ -1,4 +1,4 @@
-module Panel.MainView exposing (render)
+module Panel.CompletedLevels exposing (render)
 
 import Action.Type exposing (Action(..))
 import Html exposing (..)
@@ -7,25 +7,30 @@ import General.Render
 import General.Style
 import Stats.Type exposing (Stats, init, movesString, pushesString, timeString)
 import General.Colors exposing (background, toRgbaString)
-import Panel.Type exposing (menuHeader, menuPlay)
+import Panel.Type exposing (congratulations, completedLevelBackMenu, endMessage)
 
 render: Html Action
 render = General.Render.layout
               [ General.Render.backgroundView (toRgbaString background)
               , Html.div [ General.Style.basePanel ]
                          [ renderHeader
+                         , renderMessage
                          , renderActions
                          ]
               ]
 
 renderHeader: Html Action
-renderHeader = Html.div [General.Style.row, General.Style.title 6.0]
-                        [(Html.text menuHeader)]
+renderHeader = Html.div [General.Style.row, General.Style.title 4.0]
+                        [(Html.text congratulations)]
+
+renderMessage: Html Action
+renderMessage = Html.div [General.Style.row, General.Style.title 2.0]
+                        [(Html.text endMessage)]
 
 renderActions: Html Action
 renderActions =
     Html.div [General.Style.row, General.Style.stats]
-             [renderAction (NextLevel 1) menuPlay]
+             [renderAction BackMenu completedLevelBackMenu]
 
 renderAction: Action -> String -> Html Action
 renderAction action title = Html.div [ General.Style.item

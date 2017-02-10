@@ -22,7 +22,7 @@ render stats =  General.Render.layout
                       ]
 
 renderHeader: Stats -> Html Action
-renderHeader stats = Html.div [General.Style.row, General.Style.title]
+renderHeader stats = Html.div [General.Style.row, General.Style.title 5.0]
                               [(Html.text (completedLevelHeader stats))]
 
 renderStats: Stats -> Html Action
@@ -31,8 +31,8 @@ renderStats stats = Html.div [General.Style.row]
 
 renderActions: Stats -> Html Action
 renderActions stats =
-    Html.div [General.Style.row, General.Style.completedStats]
-             [ renderAction (BackMenu stats) completedLevelBackMenu
+    Html.div [General.Style.row, General.Style.stats]
+             [ renderAction BackMenu completedLevelBackMenu
              , renderAction (NextLevel (stats.level)) completedLevelRetry
              , renderAction (NextLevel (stats.level + 1)) completedLevelNextLevel
              ]
@@ -40,12 +40,13 @@ renderActions stats =
 renderAction: Action -> String -> Html Action
 renderAction action title = Html.div [ General.Style.item
                                      , General.Style.buttonStyle
+                                     , General.Style.generalButtonStyle
                                      , Html.Events.onClick action
                                      ]
                                      [(Html.text title)]
 
 renderStats': Stats -> Html Action
-renderStats' stats =   Html.div [General.Style.row, General.Style.completedStats]
+renderStats' stats =   Html.div [General.Style.row, General.Style.stats]
                           [ renderItem (movesString stats)
                           , renderItem (pushesString stats)
                           , renderItem (timeString stats)

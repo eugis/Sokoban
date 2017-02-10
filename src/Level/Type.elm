@@ -1,5 +1,5 @@
 module Level.Type exposing (Level, validateWin, LevelState(..), move, level,
-                            updateTime)
+                            updateTime, menu, retry, appTitle, levelText)
 
 import Board.Type exposing (Board, component, clear, playerPosition, boxesPositions)
 import Component.Type exposing (Component(..), isGoal, moveBoxes, isOccupable,
@@ -118,3 +118,17 @@ validateWin: Board -> List Location -> Bool
 validateWin board boxes = List.map (\l -> component board l
                                     |> Component.Type.isGoal) boxes
                           |> foldr (&&) True
+
+-- Strings to show
+
+menu: String
+menu = "menu"
+
+retry: String
+retry = "retry"
+
+appTitle: String
+appTitle = "Sokoban"
+
+levelText: Int -> String
+levelText levelNumber = "Level " ++ toString levelNumber

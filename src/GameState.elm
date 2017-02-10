@@ -7,8 +7,7 @@ import Time exposing (..)
 import Stats.Type exposing (Stats)
 import LevelManager exposing (restart)
 
--- type alias SokobanState = Menu | Help | Level | Position
-type SokobanState = InLevel Level | Win Stats | Menu
+type SokobanState = InLevel Level | Win Stats | Menu | EndGame
 
 type alias Help = {
                     message: String,

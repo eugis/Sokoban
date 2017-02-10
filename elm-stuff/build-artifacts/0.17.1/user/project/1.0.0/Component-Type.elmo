@@ -53,7 +53,7 @@ var _user$project$Component_Type$isMovable = function (component) {
 			return false;
 	}
 };
-var _user$project$Component_Type$size = 40;
+var _user$project$Component_Type$size = 35;
 var _user$project$Component_Type$Empty = {ctor: 'Empty'};
 var _user$project$Component_Type$Player = {ctor: 'Player'};
 var _user$project$Component_Type$Goal = {ctor: 'Goal'};

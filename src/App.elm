@@ -11,6 +11,7 @@ import Time exposing (..)
 import Stats.Type exposing (..)
 import Panel.CompletedView exposing (render)
 import Panel.MainView exposing (render)
+import Panel.CompletedLevels exposing (render)
 import LevelManager exposing (level)
 
 init : (SokobanState, Cmd Action)
@@ -22,6 +23,7 @@ view gameState =
         InLevel level -> Level.View.render level
         GameState.Win stats -> Panel.CompletedView.render stats
         Menu -> Panel.MainView.render
+        EndGame -> Panel.CompletedLevels.render
 
 update : Action -> SokobanState -> (SokobanState, Cmd Action)
 update action gameState =
@@ -29,9 +31,9 @@ update action gameState =
         KeyboardInput input -> ( updateStateWithKeyboard input gameState, Cmd.none )
         Tick time -> ( updateStateWithTime time gameState, Cmd.none)
         NextLevel levelNumber -> case (LevelManager.level levelNumber) of
-                                    Nothing -> ((GameState.Win (Stats.Type.init 6)), Cmd.none) --TODO: this should be change with error messages
+                                    Nothing -> (EndGame, Cmd.none)
                                     Just level -> (InLevel level,  Cmd.none )
-        BackMenu stats -> (Menu,  Cmd.none )
+        BackMenu -> (Menu,  Cmd.none )
 
 subscriptions : SokobanState -> Sub Action
 subscriptions model =

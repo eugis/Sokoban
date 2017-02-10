@@ -12,7 +12,3 @@ layout children =
 backgroundView: String -> Html msg
 backgroundView color =
   Html.div [General.Style.background color] []
-
-title: String -> Html msg
-title message =
-    Html.div [General.Style.title] [text message]

@@ -35,9 +35,7 @@ var _user$project$Action_Type$dir = F2(
 var _user$project$Action_Type$NextLevel = function (a) {
 	return {ctor: 'NextLevel', _0: a};
 };
-var _user$project$Action_Type$BackMenu = function (a) {
-	return {ctor: 'BackMenu', _0: a};
-};
+var _user$project$Action_Type$BackMenu = {ctor: 'BackMenu'};
 var _user$project$Action_Type$Tick = function (a) {
 	return {ctor: 'Tick', _0: a};
 };

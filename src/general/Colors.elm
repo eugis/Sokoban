@@ -2,6 +2,9 @@ module General.Colors exposing (..)
 
 import Color exposing (Color, rgb, toRgb, rgba)
 
+panelBorder: Color
+panelBorder = (rgb 255 228 225)
+
 background: Color
 background = (rgb 36 44 45)
 
@@ -24,7 +27,7 @@ playerBorder: Color
 playerBorder = (rgb 102 204 0)
 
 floor': Color
-floor' = (rgba 255 245 238 0.8)
+floor' = (rgb 255 245 238)
 
 textColor: Color
 textColor = (rgb 205 175 149)
