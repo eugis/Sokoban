@@ -9,28 +9,19 @@ import GameState exposing (..)
 import Keyboard exposing (..)
 import Time exposing (..)
 import Stats.Type exposing (..)
-import Panel.View exposing (render)
+import Panel.CompletedView exposing (render)
+import Panel.MainView exposing (render)
 import LevelManager exposing (level)
 
--- TODO: this should be removed when works properly
--- an get level from a predifined way
-import Level.Mock exposing (..)
-
 init : (SokobanState, Cmd Action)
-init = (InLevel {
-                board = Level.Mock.defaultBoard,
-                boxes = Level.Mock.defaultBoxes,
-                player = Level.Mock.defaultPlayerLocation,
-                state = WaitingForMove,
-                stats = Stats.Type.init 1
-                },
-        Cmd.none)
+init = (Menu, Cmd.none)
 
 view : SokobanState -> Html Action
 view gameState =
   case gameState of
         InLevel level -> Level.View.render level
-        GameState.Win stats -> Panel.View.render stats
+        GameState.Win stats -> Panel.CompletedView.render stats
+        Menu -> Panel.MainView.render
 
 update : Action -> SokobanState -> (SokobanState, Cmd Action)
 update action gameState =
@@ -40,12 +31,7 @@ update action gameState =
         NextLevel levelNumber -> case (LevelManager.level levelNumber) of
                                     Nothing -> ((GameState.Win (Stats.Type.init 6)), Cmd.none) --TODO: this should be change with error messages
                                     Just level -> (InLevel level,  Cmd.none )
-        BackMenu stats -> (InLevel { board = Level.Mock.defaultBoard --TODO: this should be update with a new function
-                                         , boxes = Level.Mock.defaultBoxes
-                                         , player = Level.Mock.defaultPlayerLocation
-                                         , state = WaitingForMove
-                                         , stats = Stats.Type.init (stats.level + 5)
-                                         },  Cmd.none )
+        BackMenu stats -> (Menu,  Cmd.none )
 
 subscriptions : SokobanState -> Sub Action
 subscriptions model =

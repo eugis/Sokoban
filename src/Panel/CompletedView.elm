@@ -1,4 +1,4 @@
-module Panel.View exposing (render)
+module Panel.CompletedView exposing (render)
 
 import Action.Type exposing (Action(..))
 import Html exposing (..)
@@ -6,14 +6,14 @@ import Html.Events exposing (onClick)
 import General.Render
 import General.Style
 import Stats.Type exposing (Stats, init, movesString, pushesString, timeString)
-import General.Colors
+import General.Colors exposing (background, toRgbaString)
 import Panel.Type exposing (completedLevelHeader, completedLevelRetry,
                             completedLevelNextLevel, completedLevelBackMenu)
 import GameState
 
 render: Stats -> Html Action
 render stats =  General.Render.layout
-                      [ General.Render.background General.Colors.backgroundHex
+                      [ General.Render.backgroundView (toRgbaString background)
                       , Html.div [ General.Style.basePanel ]
                                  [ renderHeader stats
                                  , renderStats stats

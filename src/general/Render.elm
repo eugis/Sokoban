@@ -9,19 +9,10 @@ layout: List (Html msg) -> Html msg
 layout children =
   Html.div [General.Style.layout] children
 
-background: String -> Html msg
-background color =
+backgroundView: String -> Html msg
+backgroundView color =
   Html.div [General.Style.background color] []
-
-menu: String -> Html msg
-menu message =
-  Html.div [General.Style.menu] [text message]
-
 
 title: String -> Html msg
 title message =
     Html.div [General.Style.title] [text message]
-
-reset: String -> Html msg
-reset message =
-  Html.div [General.Style.reset] [text message]

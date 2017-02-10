@@ -8,7 +8,7 @@ import Stats.Type exposing (Stats)
 import LevelManager exposing (restart)
 
 -- type alias SokobanState = Menu | Help | Level | Position
-type SokobanState = InLevel Level | Win Stats
+type SokobanState = InLevel Level | Win Stats | Menu
 
 type alias Help = {
                     message: String,
@@ -34,7 +34,7 @@ updateStateWithTime time state =
 updateLevelWithKeyboard: KeyboardInput -> Level -> SokobanState
 updateLevelWithKeyboard keyboardInput level =
   case keyboardInput of
-     Esc -> InLevel level --TODO: shold show the main menu when implemented
+     Esc -> Menu
      None -> InLevel level -- As it is not a valid key returns the same state
      Restart -> InLevel (LevelManager.restart level)
      otherwise -> newState (move (direction keyboardInput) level)

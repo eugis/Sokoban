@@ -13,3 +13,9 @@ completedLevelNextLevel = "Next level"
 
 completedLevelBackMenu: String
 completedLevelBackMenu = "Back to menu"
+
+menuHeader: String
+menuHeader = "Sokoban"
+
+menuPlay: String
+menuPlay = "Play"

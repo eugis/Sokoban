@@ -25,3 +25,9 @@ infixr 9 !!
         |> List.reverse
         |> List.head
    else Nothing
+
+toPixel: Float -> String
+toPixel number = toString number ++ "px"
+
+toPercentage: Float -> String
+toPercentage number = toString number ++ "%"

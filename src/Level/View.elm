@@ -13,12 +13,12 @@ import Board.Type exposing (component)
 import General.Render exposing (..)
 import List
 import General.Style
-import General.Colors
+import General.Colors exposing (background, toRgbaString)
 
 -- Update later
 render: Level -> Html Action
 render level = General.Render.layout [ renderCompleteBoard level
-                                     , General.Render.background General.Colors.backgroundHex
+                                     , General.Render.backgroundView (toRgbaString background)
                                      , Stats.View.render level.stats
                                      ]
 
