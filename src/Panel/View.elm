@@ -6,14 +6,14 @@ import Html.Events exposing (onClick)
 import General.Render
 import General.Style
 import Stats.Type exposing (Stats, init, movesString, pushesString, timeString)
-import General.Color
+import General.Colors
 import Panel.Type exposing (completedLevelHeader, completedLevelRetry,
                             completedLevelNextLevel, completedLevelBackMenu)
 import GameState
 
 render: Stats -> Html Action
 render stats =  General.Render.layout
-                      [ General.Render.background General.Color.backgroundHex
+                      [ General.Render.background General.Colors.backgroundHex
                       , Html.div [ General.Style.basePanel ]
                                  [ renderHeader stats
                                  , renderStats stats

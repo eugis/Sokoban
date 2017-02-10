@@ -1,7 +1,7 @@
-module Level.Type exposing (Level, validateWin, LevelState(..), move,
+module Level.Type exposing (Level, validateWin, LevelState(..), move, level,
                             updateTime)
 
-import Board.Type exposing (Board, component)
+import Board.Type exposing (Board, component, clear, playerPosition, boxesPositions)
 import Component.Type exposing (Component(..), isGoal, moveBoxes, isOccupable,
                                 isBox)
 import Matrix exposing (..)
@@ -18,7 +18,33 @@ type alias Level = { board: Board
                    , stats: Stats
                    }
 
-type LevelState = Win | GameOver | WaitingForMove
+type LevelState = Win | WaitingForMove
+
+-- Initializers
+
+level: Int -> Board -> Maybe Level
+level number board =
+    case (Board.Type.playerPosition board) of
+      Nothing -> Nothing
+      Just playerPosition -> initWithPlayer number board playerPosition
+
+initWithPlayer: Int -> Board -> Location -> Maybe Level
+initWithPlayer number board player =
+    case (Board.Type.boxesPositions board) of
+      Nothing -> Nothing
+      Just boxes -> Just (init number board player boxes)
+
+init: Int -> Board -> Location -> List Location -> Level
+init number board player boxes =
+      let board = Board.Type.clear board
+      in { board = board
+         , boxes = boxes
+         , player = player
+         , state = WaitingForMove
+         , stats = Stats.Type.init number
+         }
+
+-- Update level parameters
 
 updateTime: Time -> Level -> Level
 updateTime time level = { board = level.board
@@ -41,22 +67,18 @@ movePlayer direction level =
         updatedBoxes = moveBoxes level.boxes updatedPlayer direction
         newLevelState = updateLevelState level.board updatedBoxes updatedPlayer
         pushes = updatedBoxes /= level.boxes
-    in {
-        board = level.board,
-        boxes = updatedBoxes,
-        player = updatedPlayer,
-        state = newLevelState,
-        stats = incrementStats level.stats pushes
-        }
+    in { board = level.board
+       , boxes = updatedBoxes
+       , player = updatedPlayer
+       , state = newLevelState
+       , stats = incrementStats level.stats pushes
+       }
 
 updateLevelState: Board -> List Location -> Location -> LevelState
 updateLevelState board boxes player =
     if (validateWin board boxes)
     then Win
-    else
-      if (validateGameOver board boxes player)
-      then GameOver
-      else WaitingForMove
+    else WaitingForMove
 
 -- Validate movements
 
@@ -75,7 +97,7 @@ isValidLocationMovement updatedPlayerPosition posibleUpdatedBoxPosition level
 
 isNotOccupableComponent: Board -> Location -> Bool
 isNotOccupableComponent board location =  isOccupableComponent board location
-                                        |> not
+                                              |> not
 
 isOccupableComponent: Board -> Location -> Bool
 isOccupableComponent board location =  component board location
@@ -96,7 +118,3 @@ validateWin: Board -> List Location -> Bool
 validateWin board boxes = List.map (\l -> component board l
                                     |> Component.Type.isGoal) boxes
                           |> foldr (&&) True
-
--- TODO: should be implemented
-validateGameOver: Board -> List Location -> Location -> Bool
-validateGameOver board boxes player = False

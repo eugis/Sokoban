@@ -1,5 +1,5 @@
 module Component.Type exposing (Component(..), notEmpty, size, isGoal,
-                                moveBoxes, isOccupable, isBox)
+                                moveBoxes, isOccupable, isBox, component)
 
 import Action.Type exposing (updateLocation)
 import Matrix exposing (..)
@@ -47,3 +47,14 @@ moveBoxes boxes location direction =
                then updateLocation l direction
                else l)
         boxes
+
+component: Char -> Maybe Component
+component c = case c of
+                'w' -> Just Wall
+                'e' -> Just Empty
+                'f' -> Just Floor
+                's' -> Just Player
+                'g' -> Just Goal
+                'b' -> Just (Box False)
+                'v' -> Just (Box True)
+                otherwise -> Nothing

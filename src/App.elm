@@ -10,6 +10,7 @@ import Keyboard exposing (..)
 import Time exposing (..)
 import Stats.Type exposing (..)
 import Panel.View exposing (render)
+import LevelManager exposing (level)
 
 -- TODO: this should be removed when works properly
 -- an get level from a predifined way
@@ -36,12 +37,9 @@ update action gameState =
     case action of
         KeyboardInput input -> ( updateStateWithKeyboard input gameState, Cmd.none )
         Tick time -> ( updateStateWithTime time gameState, Cmd.none)
-        NextLevel levelNumber -> (InLevel { board = Level.Mock.defaultBoard --TODO: this should be update with a new function
-                                         , boxes = Level.Mock.defaultBoxes
-                                         , player = Level.Mock.defaultPlayerLocation
-                                         , state = WaitingForMove
-                                         , stats = Stats.Type.init levelNumber
-                                         },  Cmd.none )
+        NextLevel levelNumber -> case (LevelManager.level levelNumber) of
+                                    Nothing -> ((GameState.Win (Stats.Type.init 6)), Cmd.none) --TODO: this should be change with error messages
+                                    Just level -> (InLevel level,  Cmd.none )
         BackMenu stats -> (InLevel { board = Level.Mock.defaultBoard --TODO: this should be update with a new function
                                          , boxes = Level.Mock.defaultBoxes
                                          , player = Level.Mock.defaultPlayerLocation

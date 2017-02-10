@@ -7,11 +7,11 @@ var _user$project$Component_View$coloredSquard = function (color) {
 		color,
 		_user$project$Component_View$square(_user$project$Component_Type$size));
 };
-var _user$project$Component_View$empty$ = _user$project$Component_View$coloredSquard(_elm_lang$core$Color$lightGrey);
-var _user$project$Component_View$wall = _user$project$Component_View$coloredSquard(_user$project$General_Color$wall);
+var _user$project$Component_View$empty$ = _user$project$Component_View$coloredSquard(_user$project$General_Colors$background);
+var _user$project$Component_View$wall = _user$project$Component_View$coloredSquard(_user$project$General_Colors$wall);
 var _user$project$Component_View$floor$ = A2(
 	_Kwarrtz$render$Graphics_Render$solidFill,
-	_user$project$General_Color$floor$,
+	_user$project$General_Colors$floor$,
 	_user$project$Component_View$square(_user$project$Component_Type$size));
 var _user$project$Component_View$goal = _Kwarrtz$render$Graphics_Render$group(
 	_elm_lang$core$Native_List.fromArray(
@@ -19,7 +19,7 @@ var _user$project$Component_View$goal = _Kwarrtz$render$Graphics_Render$group(
 			_user$project$Component_View$floor$,
 			A2(
 			_Kwarrtz$render$Graphics_Render$solidFill,
-			_user$project$General_Color$goal,
+			_user$project$General_Colors$goal,
 			_Kwarrtz$render$Graphics_Render$circle(_user$project$Component_Type$size / 6))
 		]));
 var _user$project$Component_View$player = _Kwarrtz$render$Graphics_Render$group(
@@ -27,21 +27,21 @@ var _user$project$Component_View$player = _Kwarrtz$render$Graphics_Render$group(
 		[
 			A2(
 			_Kwarrtz$render$Graphics_Render$solidFill,
-			_user$project$General_Color$playerBorder,
+			_user$project$General_Colors$playerBorder,
 			_Kwarrtz$render$Graphics_Render$circle((_user$project$Component_Type$size / 2) - 3)),
 			A2(
 			_Kwarrtz$render$Graphics_Render$solidFill,
-			_user$project$General_Color$player,
+			_user$project$General_Colors$player,
 			_Kwarrtz$render$Graphics_Render$circle((_user$project$Component_Type$size / 2) - 6))
 		]));
 var _user$project$Component_View$box = function (inGoal) {
-	var boxColor = inGoal ? _user$project$General_Color$boxWithGoal : _user$project$General_Color$box;
+	var boxColor = inGoal ? _user$project$General_Colors$boxWithGoal : _user$project$General_Colors$box;
 	return _Kwarrtz$render$Graphics_Render$group(
 		_elm_lang$core$Native_List.fromArray(
 			[
 				A2(
 				_Kwarrtz$render$Graphics_Render$solidFill,
-				_user$project$General_Color$boxBorder,
+				_user$project$General_Colors$boxBorder,
 				_user$project$Component_View$square(_user$project$Component_Type$size - 3)),
 				A2(
 				_Kwarrtz$render$Graphics_Render$solidFill,

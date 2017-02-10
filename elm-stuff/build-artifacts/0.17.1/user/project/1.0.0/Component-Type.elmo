@@ -62,3 +62,26 @@ var _user$project$Component_Type$Floor = {ctor: 'Floor'};
 var _user$project$Component_Type$Box = function (a) {
 	return {ctor: 'Box', _0: a};
 };
+var _user$project$Component_Type$component = function (c) {
+	var _p5 = c;
+	switch (_p5.valueOf()) {
+		case 'w':
+			return _elm_lang$core$Maybe$Just(_user$project$Component_Type$Wall);
+		case 'e':
+			return _elm_lang$core$Maybe$Just(_user$project$Component_Type$Empty);
+		case 'f':
+			return _elm_lang$core$Maybe$Just(_user$project$Component_Type$Floor);
+		case 's':
+			return _elm_lang$core$Maybe$Just(_user$project$Component_Type$Player);
+		case 'g':
+			return _elm_lang$core$Maybe$Just(_user$project$Component_Type$Goal);
+		case 'b':
+			return _elm_lang$core$Maybe$Just(
+				_user$project$Component_Type$Box(false));
+		case 'v':
+			return _elm_lang$core$Maybe$Just(
+				_user$project$Component_Type$Box(true));
+		default:
+			return _elm_lang$core$Maybe$Nothing;
+	}
+};

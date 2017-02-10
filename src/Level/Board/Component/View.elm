@@ -5,7 +5,7 @@ import Graphics.Render exposing (..)
 import Component.Type exposing (Component(..), size)
 import Action.Type exposing (..)
 import Matrix exposing (..)
-import General.Color exposing (..)
+import General.Colors exposing (..)
 
 
 render: Location -> Component -> Form Action
@@ -28,35 +28,35 @@ view component =
  --       fucntions to avoid code repetation
 box: Bool -> Form Action
 box inGoal =
-  let boxColor = if inGoal then General.Color.boxWithGoal else General.Color.box
+  let boxColor = if inGoal then General.Colors.boxWithGoal else General.Colors.box
   in
   group
-    [ square (Component.Type.size - 3) |> solidFill General.Color.boxBorder
+    [ square (Component.Type.size - 3) |> solidFill General.Colors.boxBorder
     , square (Component.Type.size - 10) |> solidFill boxColor
     ]
 
 player: Form Action
 player =
   group
-    [ circle ((Component.Type.size / 2) - 3) |> solidFill General.Color.playerBorder
-    , circle ((Component.Type.size / 2) - 6) |> solidFill General.Color.player
+    [ circle ((Component.Type.size / 2) - 3) |> solidFill General.Colors.playerBorder
+    , circle ((Component.Type.size / 2) - 6) |> solidFill General.Colors.player
     ]
 
 floor': Form Action
-floor' = square Component.Type.size |> solidFill General.Color.floor'
+floor' = square Component.Type.size |> solidFill General.Colors.floor'
 
 goal: Form Action
 goal =
   group
     [ floor'
-    , circle (Component.Type.size / 6) |> solidFill General.Color.goal
+    , circle (Component.Type.size / 6) |> solidFill General.Colors.goal
     ]
 
 wall: Form Action
-wall = coloredSquard General.Color.wall
+wall = coloredSquard General.Colors.wall
 
 empty': Form Action
-empty' = coloredSquard Color.lightGrey
+empty' = coloredSquard General.Colors.background
 
 coloredSquard: Color.Color -> Form Action
 coloredSquard color = square Component.Type.size |> solidFill color

@@ -1,9 +1,9 @@
-module General.Color exposing (..)
+module General.Colors exposing (..)
 
 import Color
 
 background: Color.Color
-background = (Color.rgb 152 251 152)
+background = (Color.rgb 36 44 45)
 
 goal: Color.Color
 goal = (Color.rgba 255 192 203 0.8)

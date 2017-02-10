@@ -1,28 +1,76 @@
+var _user$project$Board_Type$flatten = function (board) {
+	return _chendrix$elm_matrix$Matrix$flatten(board);
+};
+var _user$project$Board_Type$clearCell = function (component) {
+	var _p0 = component;
+	switch (_p0.ctor) {
+		case 'Player':
+			return _user$project$Component_Type$Floor;
+		case 'Box':
+			return _p0._0 ? _user$project$Component_Type$Goal : _user$project$Component_Type$Floor;
+		default:
+			return component;
+	}
+};
+var _user$project$Board_Type$clear = function (board) {
+	return A2(_chendrix$elm_matrix$Matrix$map, _user$project$Board_Type$clearCell, board);
+};
+var _user$project$Board_Type$boardFromList = function (list) {
+	return _chendrix$elm_matrix$Matrix$fromList(list);
+};
 var _user$project$Board_Type$component = F2(
 	function (board, location) {
-		var _p0 = A2(_chendrix$elm_matrix$Matrix$get, location, board);
-		if (_p0.ctor === 'Nothing') {
+		var _p1 = A2(_chendrix$elm_matrix$Matrix$get, location, board);
+		if (_p1.ctor === 'Nothing') {
 			return _user$project$Component_Type$Empty;
 		} else {
-			return _p0._0;
+			return _p1._0;
 		}
 	});
 var _user$project$Board_Type$mapWithLocation = F2(
 	function (func, board) {
-		mapWithLocation:
-		while (true) {
-			var _v1 = func,
-				_v2 = board;
-			func = _v1;
-			board = _v2;
-			continue mapWithLocation;
-		}
+		return A2(_chendrix$elm_matrix$Matrix$mapWithLocation, func, board);
 	});
+var _user$project$Board_Type$componentPositions = F2(
+	function (board, searchedComponent) {
+		return _user$project$Utilities$filterNothings(
+			_chendrix$elm_matrix$Matrix$flatten(
+				A2(
+					_user$project$Board_Type$mapWithLocation,
+					F2(
+						function (location, component) {
+							return _elm_lang$core$Native_Utils.eq(component, searchedComponent) ? _elm_lang$core$Maybe$Just(location) : _elm_lang$core$Maybe$Nothing;
+						}),
+					board)));
+	});
+var _user$project$Board_Type$playerPosition = function (board) {
+	var positions = A2(_user$project$Board_Type$componentPositions, board, _user$project$Component_Type$Player);
+	return _elm_lang$core$Native_Utils.eq(
+		_elm_lang$core$List$length(positions),
+		1) ? _elm_lang$core$List$head(positions) : _elm_lang$core$Maybe$Nothing;
+};
+var _user$project$Board_Type$boxesPositions = function (board) {
+	var goals = A2(_user$project$Board_Type$componentPositions, board, _user$project$Component_Type$Goal);
+	var boxesInGoal = A2(
+		_user$project$Board_Type$componentPositions,
+		board,
+		_user$project$Component_Type$Box(true));
+	var boxes = A2(
+		_user$project$Board_Type$componentPositions,
+		board,
+		_user$project$Component_Type$Box(false));
+	return ((!_elm_lang$core$Native_Utils.eq(
+		_elm_lang$core$List$length(boxes),
+		_elm_lang$core$List$length(goals))) || _elm_lang$core$Native_Utils.eq(
+		_elm_lang$core$List$length(boxes),
+		0)) ? _elm_lang$core$Maybe$Nothing : _elm_lang$core$Maybe$Just(
+		A2(_elm_lang$core$Basics_ops['++'], boxes, boxesInGoal));
+};
 var _user$project$Board_Type$nonEmptyBoardComponents = function (board) {
 	return A2(
 		_elm_lang$core$List$filter,
 		_user$project$Component_Type$notEmpty,
-		_chendrix$elm_matrix$Matrix$flatten(board));
+		_user$project$Board_Type$flatten(board));
 };
 var _user$project$Board_Type$cellSize = _user$project$Component_Type$size;
 var _user$project$Board_Type$width = function (board) {
