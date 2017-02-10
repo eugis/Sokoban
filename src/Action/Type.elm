@@ -10,18 +10,18 @@ type Action = KeyboardInput KeyboardInput
             | BackMenu Stats
             | NextLevel Int
 
-type KeyboardInput = Up | Down | Left | Right | Esc | Enter | None
+type KeyboardInput = Up | Down | Left | Right | Esc | Restart | None
 
 keyboardInput: KeyCode -> Action
 keyboardInput keyCode =
   case keyCode of
+    27 -> KeyboardInput Esc
     37 -> KeyboardInput Left
     38 -> KeyboardInput Up
     39 -> KeyboardInput Right
     40 -> KeyboardInput Down
+    82 -> KeyboardInput Restart
     otherwise -> KeyboardInput None
-
--- Directions TODO: Check if the logic has sense or should be modify
 
 type alias Direction = (Int, Int)
 

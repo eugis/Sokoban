@@ -1,4 +1,4 @@
-module LevelManager exposing (level)
+module LevelManager exposing (level, restart)
 
 import Level.Type exposing (..)
 import Component.Type exposing (..)
@@ -63,3 +63,11 @@ generateComponentScheme scheme = applyIfPosible mapElementsRow scheme
 
 mapElementsRow: List Char -> Maybe (List Component)
 mapElementsRow row = applyIfPosible Component.Type.component row
+
+-- This code should be update if users can test their own LevelState
+-- Level should save original pattern and generate the level again
+restart: Level -> Level
+restart oldLevel =
+    case (level oldLevel.stats.level) of
+          Nothing -> oldLevel -- this state should neve be arrived
+          Just newLevel -> newLevel

@@ -5,6 +5,7 @@ import Action.Type exposing (..)
 import Debug exposing (..)
 import Time exposing (..)
 import Stats.Type exposing (Stats)
+import LevelManager exposing (restart)
 
 -- type alias SokobanState = Menu | Help | Level | Position
 type SokobanState = InLevel Level | Win Stats
@@ -35,7 +36,7 @@ updateLevelWithKeyboard keyboardInput level =
   case keyboardInput of
      Esc -> InLevel level --TODO: shold show the main menu when implemented
      None -> InLevel level -- As it is not a valid key returns the same state
-     Enter -> InLevel level -- TODO: should restart level
+     Restart -> InLevel (LevelManager.restart level)
      otherwise -> newState (move (direction keyboardInput) level)
 
 updateLevelWithTime: Time -> Level -> SokobanState
