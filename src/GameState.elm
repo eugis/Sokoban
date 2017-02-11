@@ -9,15 +9,6 @@ import LevelManager exposing (restart)
 
 type SokobanState = InLevel Level | Win Stats | Menu | EndGame
 
-type alias Help = {
-                    message: String,
-                    instructions: List Instruction
-                  }
-
-type alias Instruction = {
-                          text: String
-                          }
-
 updateStateWithKeyboard: KeyboardInput -> SokobanState -> SokobanState
 updateStateWithKeyboard keyboardInput state =
   case state of

@@ -17,6 +17,13 @@ parseLevel number =
 
 levelsSchemes: List (List (List Char))
 levelsSchemes = [
+                  [ ['w', 'w', 'w', 'w', 'e']
+                  , ['w', 'g', 'f', 'w', 'w']
+                  , ['w', 'f', 'b', 'f', 'w']
+                  , ['w', 'f', 's', 'f', 'w']
+                  , ['w', 'w', 'w', 'w', 'w']
+                  ]
+                ,
                   [ ['e', 'e', 'e', 'e', 'w', 'w', 'w', 'w', 'w', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
                   , ['e', 'e', 'e', 'e', 'w', 'f', 'f', 'f', 'w', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
                   , ['e', 'e', 'e', 'e', 'w', 'b', 'f', 'f', 'w', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']

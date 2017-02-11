@@ -7,46 +7,43 @@ import General.Colors exposing (toRgbaString, buttonBackground, titleColor,
 import Utilities exposing (toPixel, toPercentage)
 
 background: String -> Attribute msg
-background color = style
-  [
-    ("position", "fixed"),
-    ("background-color", color),
-    ("width", "100%"),
-    ("top", "0"),
-    ("bottom", "0"),
-    ("z-index", "-1")
-  ]
+background color = style [ ("position", "fixed")
+                         , ("background-color", color)
+                         , ("width", "100%")
+                         , ("top", "0")
+                         , ("bottom", "0")
+                         , ("z-index", "-1")
+                         ]
 
 layout: Attribute msg
-layout = style
-    [ ("position", "fixed")
-    , ("display", "flex")
-    , ("align-items", "center")
-    , ("justify-content", "center")
-    , ("height", "100%")
-    , ("width", "100%")
-    ]
+layout = style [ ("position", "fixed")
+               , ("display", "flex")
+               , ("align-items", "center")
+               , ("justify-content", "center")
+               , ("height", "100%")
+               , ("width", "100%")
+               ]
+
 
 layoutVertical: Attribute msg
-layoutVertical = style
-    [ ("position", "relative")
-    , ("display", "flex")
-    , ("align-items", "center")
-    , ("justify-content", "center")
-    , ("height", "100%")
-    , ("width", "100%")
-    , ("flex-direction", "column")
-    ]
+layoutVertical = style [ ("position", "relative")
+                       , ("display", "flex")
+                       , ("align-items", "center")
+                       , ("justify-content", "center")
+                       , ("height", "100%")
+                       , ("width", "100%")
+                       , ("flex-direction", "column")
+                       ]
 
 title: Float -> Attribute msg
-title size = style
-  [ ("position", "relative")
-  , ("color", toRgbaString titleColor)
-  , ("font-family", "'Verdana', Geneva, sans-serif")
-  , ("font-size", toString size ++ "em")
-  , ("text-align", "center")
-  , ("padding-top", "16px")
-  ]
+title size = style [ ("position", "relative")
+                   , ("color", toRgbaString titleColor)
+                   , ("font-family", "'Verdana', Geneva, sans-serif")
+                   , ("font-size", toString size ++ "em")
+                   , ("text-align", "center")
+                   , ("padding-top", "16px")
+                   ]
+
 
 stats: Attribute msg
 stats = style [ ("position", "relative")
@@ -97,14 +94,14 @@ topButtonStyle = style [ ("font-size", "1.25em") ]
 
 generalButtonStyle: Attribute msg
 generalButtonStyle = style [ ("flex-grow", "1")
-                       , ("max-width", "30%")
-                       , ("align-self", "center")
-                       , ("justify-content", "center")
-                       , ("color", toRgbaString titleColor)
-                       , ("font-family", "Lucida Console', Monaco, monospace")
-                       , ("text-align", "center")
-                       , ("text-transform", "uppercase")
-                       ]
+                           , ("max-width", "30%")
+                           , ("align-self", "center")
+                           , ("justify-content", "center")
+                           , ("color", toRgbaString titleColor)
+                           , ("font-family", "Lucida Console', Monaco, monospace")
+                           , ("text-align", "center")
+                           , ("text-transform", "uppercase")
+                           ]
 row: Attribute msg
 row = style [ ("flex-grow", "1")
             , ("max-height", "50%")
@@ -154,13 +151,12 @@ topBar = style [ ("position", "relative")
                ]
 
 topTitles: Float -> Int -> Attribute msg
-topTitles size growth = style
-    [ ("position", "relative")
-    , ("color", toRgbaString titleColor)
-    , ("font-family", "'Verdana', Geneva, sans-serif")
-    , ("font-size", toString size ++ "em")
-    , ("text-align", "center")
-    , ("padding-top", "8px")
-    , ("flex-grow", toString growth)
-    , ("self-align", "center")
-    ]
+topTitles size growth = style [ ("position", "relative")
+                              , ("color", toRgbaString titleColor)
+                              , ("font-family", "'Verdana', Geneva, sans-serif")
+                              , ("font-size", toString size ++ "em")
+                              , ("text-align", "center")
+                              , ("padding-top", "8px")
+                              , ("flex-grow", toString growth)
+                              , ("self-align", "center")
+                              ]
