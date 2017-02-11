@@ -50,6 +50,8 @@ renderCompleteBoard level =
               |> List.repeat 1
               |> Html.div [(General.Style.board width height)]
 
+
+-- Render of top bar 
 renderTopBar: Int -> Html Action
 renderTopBar levelNumber =
                     Html.div [General.Style.row, General.Style.topBar]

@@ -24,8 +24,6 @@ view component =
     Player  -> player
     Empty   -> empty'
 
- -- TODO: the logic to draw could be modularize into
- --       fucntions to avoid code repetation
 box: Bool -> Form Action
 box inGoal =
   let boxColor = if inGoal then General.Colors.boxWithGoal else General.Colors.box
