@@ -32,7 +32,7 @@ renderStats stats = Html.div [General.Style.row]
 renderActions: Stats -> Html Action
 renderActions stats =
     Html.div [General.Style.row, General.Style.stats]
-             [ renderAction BackMenu completedLevelBackMenu
+             [ renderAction (Menu 1) completedLevelBackMenu
              , renderAction (NextLevel (stats.level)) completedLevelRetry
              , renderAction (NextLevel (stats.level + 1)) completedLevelNextLevel
              ]

@@ -24,6 +24,20 @@ layout = style [ ("position", "fixed")
                , ("width", "100%")
                ]
 
+select: Attribute msg
+select =  style [ ("position", "relative")
+                , ("display", "flex")
+                , ("align-items", "center")
+                , ("justify-content", "center")
+                , ("height", "50px")
+                , ("width", "50%")
+                , ("font-family", "'Orbitron', sans-serif, bold")
+                , ("font-size", "1.5em")
+                , ("border", "5px solid " ++ toRgbaString panelBorder)
+                , ("background-color", toRgbaString panelBackground)
+                , ("color", toRgbaString titleColor)
+                , ("text-align", "center")
+                ]
 
 layoutVertical: Attribute msg
 layoutVertical = style [ ("position", "relative")
@@ -43,7 +57,6 @@ title size = style [ ("position", "relative")
                    , ("text-align", "center")
                    , ("padding-top", "16px")
                    ]
-
 
 stats: Attribute msg
 stats = style [ ("position", "relative")
@@ -102,6 +115,7 @@ generalButtonStyle = style [ ("flex-grow", "1")
                            , ("text-align", "center")
                            , ("text-transform", "uppercase")
                            ]
+
 row: Attribute msg
 row = style [ ("flex-grow", "1")
             , ("max-height", "50%")

@@ -51,7 +51,7 @@ renderCompleteBoard level =
               |> Html.div [(General.Style.board width height)]
 
 
--- Render of top bar 
+-- Render of top bar
 renderTopBar: Int -> Html Action
 renderTopBar levelNumber =
                     Html.div [General.Style.row, General.Style.topBar]
@@ -63,7 +63,7 @@ renderTopBar levelNumber =
 renderActions: Int -> Html Action
 renderActions levelNumber =
     Html.div [General.Style.topItem]
-             [ renderAction BackMenu menu
+             [ renderAction (Menu 1) menu
              , renderAction (NextLevel levelNumber) retry
              ]
 

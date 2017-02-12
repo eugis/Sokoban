@@ -7,7 +7,7 @@ import Stats.Type exposing (..)
 
 type Action = KeyboardInput KeyboardInput
             | Tick Time
-            | BackMenu
+            | Menu Int -- This Int represent the selected level
             | NextLevel Int
 
 type KeyboardInput = Up | Down | Left | Right | Esc | Restart | None

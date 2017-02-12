@@ -30,7 +30,7 @@ renderMessage = Html.div [General.Style.row, General.Style.title 2.0]
 renderActions: Html Action
 renderActions =
     Html.div [General.Style.row, General.Style.stats]
-             [renderAction BackMenu completedLevelBackMenu]
+             [renderAction (Menu 1) completedLevelBackMenu]
 
 renderAction: Action -> String -> Html Action
 renderAction action title = Html.div [ General.Style.item

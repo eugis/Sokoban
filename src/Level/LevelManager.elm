@@ -1,10 +1,11 @@
-module LevelManager exposing (level, restart)
+module LevelManager exposing (level, restart, availableLevels)
 
 import Level.Type exposing (..)
 import Component.Type exposing (..)
 import Debug
 import Board.Type exposing (boardFromList)
 import Utilities exposing (..)
+import List exposing (length, map, repeat, indexedMap)
 
 level: Int -> Maybe Level
 level number = parseLevel number
@@ -115,3 +116,7 @@ restart oldLevel =
     case (level oldLevel.stats.level) of
           Nothing -> oldLevel -- this state should neve be arrived
           Just newLevel -> newLevel
+
+availableLevels: List String
+availableLevels = repeat (length  levelsSchemes) 0 -- This should create a list with necessary elements
+                    |> indexedMap (\index _ -> "Level " ++ toString (index + 1))

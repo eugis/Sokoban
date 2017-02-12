@@ -7,7 +7,7 @@ import Time exposing (..)
 import Stats.Type exposing (Stats)
 import LevelManager exposing (restart)
 
-type SokobanState = InLevel Level | Win Stats | Menu | EndGame
+type SokobanState = InLevel Level | Win Stats | Menu Int | EndGame
 
 updateStateWithKeyboard: KeyboardInput -> SokobanState -> SokobanState
 updateStateWithKeyboard keyboardInput state =
@@ -24,7 +24,7 @@ updateStateWithTime time state =
 updateLevelWithKeyboard: KeyboardInput -> Level -> SokobanState
 updateLevelWithKeyboard keyboardInput level =
   case keyboardInput of
-     Esc -> Menu
+     Esc -> Menu 1 -- default value for manue
      None -> InLevel level -- As it is not a valid key returns the same state
      Restart -> InLevel (LevelManager.restart level)
      otherwise -> newState (move (direction keyboardInput) level)

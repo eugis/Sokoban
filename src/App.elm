@@ -15,14 +15,14 @@ import Panel.CompletedLevels exposing (render)
 import LevelManager exposing (level)
 
 init : (SokobanState, Cmd Action)
-init = (Menu, Cmd.none)
+init = (GameState.Menu 1, Cmd.none)
 
 view : SokobanState -> Html Action
 view gameState =
   case gameState of
         InLevel level -> Level.View.render level
         GameState.Win stats -> Panel.CompletedView.render stats
-        Menu -> Panel.MainView.render
+        GameState.Menu level -> Panel.MainView.render level
         EndGame -> Panel.CompletedLevels.render
 
 update : Action -> SokobanState -> (SokobanState, Cmd Action)
@@ -33,7 +33,7 @@ update action gameState =
         NextLevel levelNumber -> case (LevelManager.level levelNumber) of
                                     Nothing -> (EndGame, Cmd.none)
                                     Just level -> (InLevel level,  Cmd.none )
-        BackMenu -> (Menu,  Cmd.none )
+        Action.Type.Menu levelNumber -> (GameState.Menu levelNumber,  Cmd.none )
 
 subscriptions : SokobanState -> Sub Action
 subscriptions model =
@@ -45,9 +45,8 @@ subscriptions model =
  -- Main is usted to start the program
 main : Program Never
 main =
-    Html.App.program {
-        init = init,
-        view = view,
-        update = update,
-        subscriptions = subscriptions
-    }
+    Html.App.program { init = init
+                     , view = view
+                     , update = update
+                     , subscriptions = subscriptions
+                     }
