@@ -3,8 +3,10 @@ module General.Style exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import General.Colors exposing (toRgbaString, buttonBackground, titleColor,
-                                textColor, panelBackground, panelBorder)
+                                textColor, panelBackground, panelBorder,
+                                topButtonHighlighted, buttonHighlighted)
 import Utilities exposing (toPixel, toPercentage)
+import DynamicStyle exposing (..)
 
 background: String -> Attribute msg
 background color = style [ ("position", "fixed")
@@ -100,15 +102,10 @@ basePanel = style [ ("position", "relative")
                   ]
 
 buttonStyle: Attribute msg
-buttonStyle = style [ ("font-size", "1em")
-                    , ("height", "60px")
-                    , ("background-color", toRgbaString buttonBackground)
-                    ]
+buttonStyle = style [ ("height", "60px") ]
 
 topButtonStyle: Attribute msg
-topButtonStyle = style [("font-size", "1.25em")
-                       , ("height", "100%")
-                       ]
+topButtonStyle = style [ ("height", "100%") ]
 
 generalButtonStyle: Attribute msg
 generalButtonStyle = style [ ("flex-grow", "1")
@@ -121,6 +118,7 @@ generalButtonStyle = style [ ("flex-grow", "1")
                            , ("text-transform", "uppercase")
                            , ("display", "flex")
                            , ("align-items", "center")
+                           , ("cursor", "pointer")
                            ]
 
 row: Attribute msg
@@ -172,3 +170,11 @@ topBar = style [ ("width", "100%")
                , ("align-self", "flex-start")
                , ("flex-grow", "1")
                ]
+
+hoverTopButton: List (Attribute msg)
+hoverTopButton = hover [ ("font-size", "1.25em", "1.5em") ]
+
+hoverButton: List (Attribute msg)
+hoverButton = hover [ ("font-size", "1em", "1.1em")
+                    , ("background-color", toRgbaString buttonBackground, toRgbaString buttonHighlighted)
+                    ]

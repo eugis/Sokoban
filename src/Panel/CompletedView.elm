@@ -1,10 +1,10 @@
 module Panel.CompletedView exposing (render)
 
-import Action.Type exposing (Action(..))
-import Html exposing (..)
-import Html.Events exposing (onClick)
+import Action.Type exposing (Action)
+import Html exposing (Html, div, text)
 import General.Render
-import General.Style
+import General.Style as Style exposing (basePanel, row, title, item, hoverButton,
+                                        buttonStyle)
 import Stats.Type exposing (Stats, init, movesString, pushesString, timeString)
 import General.Colors exposing (background, toRgbaString)
 import Panel.Type exposing (completedLevelHeader, completedLevelRetry,
@@ -16,38 +16,37 @@ import Button.View exposing (render)
 render: Stats -> Html Action
 render stats =  General.Render.layout
                       [ General.Render.backgroundView (toRgbaString background)
-                      , Html.div [ General.Style.basePanel ]
-                                 [ renderHeader stats
-                                 , renderStats stats
-                                 , renderActions stats
-                                 ]
+                      , div [ basePanel ]
+                            [ renderHeader stats
+                            , renderStats stats
+                            , renderActions stats
+                            ]
                       ]
 
 renderHeader: Stats -> Html Action
-renderHeader stats = Html.div [General.Style.row, General.Style.title 5.0]
-                              [(Html.text (completedLevelHeader stats))]
+renderHeader stats = div [ row, title 5.0 ]
+                         [ (text (completedLevelHeader stats)) ]
 
 renderStats: Stats -> Html Action
-renderStats stats = Html.div [General.Style.row]
-                             [renderStats' stats]
+renderStats stats = Html.div [ row ] [ renderStats' stats ]
 
 renderActions: Stats -> Html Action
 renderActions stats =
     let
-      attributes = [ General.Style.item, General.Style.buttonStyle ]
+      attributes = [ item, buttonStyle ] ++ hoverButton
     in
-      Html.div [General.Style.row, General.Style.stats]
-               [ Button.View.render (Button.Type.Menu 1) attributes
-               , Button.View.render (Button.Type.Retry stats.level) attributes
-               , Button.View.render (Button.Type.Next (stats.level + 1)) attributes
-               ]
+      div [ row, Style.stats ]
+          [ Button.View.render (Menu 1) attributes
+          , Button.View.render (Retry stats.level) attributes
+          , Button.View.render (Next (stats.level + 1)) attributes
+          ]
 
 renderStats': Stats -> Html Action
-renderStats' stats =   Html.div [General.Style.row, General.Style.stats]
-                          [ renderItem (movesString stats)
-                          , renderItem (pushesString stats)
-                          , renderItem (timeString stats)
-                          ]
+renderStats' stats = div [row, Style.stats]
+                         [ renderItem (movesString stats)
+                         , renderItem (pushesString stats)
+                         , renderItem (timeString stats)
+                         ]
 
 renderItem: String -> Html Action
-renderItem stat = Html.div [General.Style.item] [(Html.text stat)]
+renderItem stat = div [ item ] [ (text stat) ]

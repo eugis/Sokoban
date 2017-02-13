@@ -38,8 +38,14 @@ titleColor = (rgb 199 21 133)
 wall: Color
 wall = (rgb 205 175 149)
 
+topButtonHighlighted: Color
+topButtonHighlighted = (rgba 255 228 225 0.4)
+
 buttonBackground: Color
 buttonBackground = (rgba 102 204 0 0.3)
+
+buttonHighlighted: Color
+buttonHighlighted = (rgba 102 204 0 0.5)
 
 panelBackground: Color
 panelBackground = (rgb 255 245 238)

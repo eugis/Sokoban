@@ -2,8 +2,8 @@ port module App exposing (..)
 
 import Html exposing (Html)
 import Html.App
-import Action.Type exposing (..)
-import Level.Type exposing (..)
+import Action.Type as Actions exposing (..)
+import Level.Type exposing (Level)
 import Level.View exposing (render)
 import GameState exposing (..)
 import Keyboard exposing (..)
@@ -28,17 +28,17 @@ view gameState =
 update : Action -> SokobanState -> (SokobanState, Cmd Action)
 update action gameState =
     case action of
-        KeyboardInput input -> ( updateStateWithKeyboard input gameState, Cmd.none )
-        Tick time -> ( updateStateWithTime time gameState, Cmd.none)
-        NextLevel levelNumber -> case (LevelManager.level levelNumber) of
+        KeyboardInput input -> (updateStateWithKeyboard input gameState, Cmd.none)
+        Tick time -> (updateStateWithTime time gameState, Cmd.none)
+        Actions.Menu levelNumber -> (GameState.Menu levelNumber,  Cmd.none)
+        NextLevel levelNumber -> case (level levelNumber) of
                                     Nothing -> (EndGame, Cmd.none)
-                                    Just level -> (InLevel level,  Cmd.none )
-        Action.Type.Menu levelNumber -> (GameState.Menu levelNumber,  Cmd.none )
+                                    Just level -> (InLevel level,  Cmd.none)
 
 subscriptions : SokobanState -> Sub Action
 subscriptions model =
       Sub.batch
-        [ Keyboard.downs Action.Type.keyboardInput
+        [ Keyboard.downs Actions.keyboardInput
         , Time.every second Tick
         ]
 

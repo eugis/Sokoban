@@ -2,7 +2,6 @@ module LevelManager exposing (level, restart, availableLevels)
 
 import Level.Type exposing (..)
 import Component.Type exposing (..)
-import Debug
 import Board.Type exposing (boardFromList)
 import Utilities exposing (..)
 import List exposing (length, map, repeat, indexedMap)
@@ -12,8 +11,8 @@ level number = parseLevel number
 
 parseLevel: Int -> Maybe Level
 parseLevel number =
-    case (levelsSchemes !! (Debug.log "level asked" number)) of
-      Just levelScheme -> Debug.log "generateLevel" (generateLevel levelScheme number)
+    case (levelsSchemes !! number) of
+      Just levelScheme -> generateLevel levelScheme number
       otherwise -> Nothing
 
 levelsSchemes: List (List (List Char))

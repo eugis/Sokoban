@@ -11,11 +11,11 @@ import Color
 import General.Render exposing (..)
 
 render: Stats -> Html Action
-render stats =   Html.div [General.Style.stats, statsEndPosition]
+render stats =   Html.div [ General.Style.stats, statsEndPosition ]
                           [ renderItem (movesString stats)
                           , renderItem (pushesString stats)
                           , renderItem (timeString stats)
                           ]
 
 renderItem: String -> Html Action
-renderItem stat = Html.div [item] [(Html.text stat)]
+renderItem stat = Html.div [ item ] [ (Html.text stat) ]

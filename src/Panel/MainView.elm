@@ -2,10 +2,11 @@ module Panel.MainView exposing (render)
 
 import Action.Type exposing (Action(..))
 import Html exposing (..)
-import Html.Events exposing (onClick)
+import Html.Events exposing (on)
 import Html.Attributes exposing (..)
 import General.Render exposing (layout, backgroundView)
-import General.Style
+import General.Style exposing (item, buttonStyle, title, row, stats, hoverButton,
+                               basePanel)
 import Stats.Type exposing (Stats, init, movesString, pushesString, timeString)
 import General.Colors exposing (background, toRgbaString)
 import Panel.Type exposing (menuHeader, menuPlay)
@@ -18,7 +19,7 @@ import Button.View exposing (render)
 render: Int -> Html Action
 render level = layout
               [ backgroundView (toRgbaString background)
-              , Html.div [ General.Style.basePanel ]
+              , Html.div [ basePanel ]
                          [ renderHeader
                          , renderSelectRow level
                          , renderActions level
@@ -26,25 +27,28 @@ render level = layout
               ]
 
 renderHeader: Html Action
-renderHeader = Html.div [General.Style.row, General.Style.title 6.0]
-                        [(Html.text menuHeader)]
+renderHeader = Html.div [ row, General.Style.title 6.0 ]
+                        [ (Html.text menuHeader) ]
 
 renderActions: Int -> Html Action
 renderActions level =
-    Html.div [General.Style.row, General.Style.stats]
-             [Button.View.render (Play level) [ General.Style.item , General.Style.buttonStyle]]
+    let
+      attributes = hoverButton ++ [ item , buttonStyle ]
+    in
+      Html.div [ row, stats ]
+               [ Button.View.render (Play level) attributes ]
 
 renderSelectRow: Int -> Html Action
-renderSelectRow level = Html.div [ General.Style.row ]
+renderSelectRow level = Html.div [ row ]
                                  [ renderLevelSelect level ]
 
 renderLevelSelect: Int -> Html Action
-renderLevelSelect level = List.indexedMap renderOption availableLevels
-                                |> Html.select [ General.Style.select
-                                               , Html.Events.on "change" (Json.map Action.Type.Menu targetValueIntParse)
-                                               ]
+renderLevelSelect level =
+    List.indexedMap renderOption availableLevels
+        |> Html.select [ General.Style.select
+                       , on "change" (Json.map Action.Type.Menu targetValueIntParse)
+                       ]
 
 renderOption: Int -> String -> Html Action
-renderOption value option = Html.option [ Html.Attributes.value (toString (value + 1))
-                                        ]
-                                        [Html.text option]
+renderOption value option = Html.option [ Html.Attributes.value (toString (value + 1)) ]
+                                        [ Html.text option ]
