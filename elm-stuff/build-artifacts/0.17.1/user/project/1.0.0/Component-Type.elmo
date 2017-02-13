@@ -1,0 +1,87 @@
+var _user$project$Component_Type$moveBoxes = F3(
+	function (boxes, location, direction) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (l) {
+				return _elm_lang$core$Native_Utils.eq(location, l) ? A2(_user$project$Action_Type$updateLocation, l, direction) : l;
+			},
+			boxes);
+	});
+var _user$project$Component_Type$isBox = function (component) {
+	var _p0 = component;
+	if (_p0.ctor === 'Box') {
+		return true;
+	} else {
+		return false;
+	}
+};
+var _user$project$Component_Type$isGoal = function (component) {
+	var _p1 = component;
+	if (_p1.ctor === 'Goal') {
+		return true;
+	} else {
+		return false;
+	}
+};
+var _user$project$Component_Type$notEmpty = function (component) {
+	var _p2 = component;
+	if (_p2.ctor === 'Empty') {
+		return false;
+	} else {
+		return true;
+	}
+};
+var _user$project$Component_Type$isOccupable = function (component) {
+	var _p3 = component;
+	switch (_p3.ctor) {
+		case 'Floor':
+			return true;
+		case 'Goal':
+			return true;
+		default:
+			return false;
+	}
+};
+var _user$project$Component_Type$isMovable = function (component) {
+	var _p4 = component;
+	switch (_p4.ctor) {
+		case 'Box':
+			return true;
+		case 'Player':
+			return true;
+		default:
+			return false;
+	}
+};
+var _user$project$Component_Type$size = 35;
+var _user$project$Component_Type$Empty = {ctor: 'Empty'};
+var _user$project$Component_Type$Player = {ctor: 'Player'};
+var _user$project$Component_Type$Goal = {ctor: 'Goal'};
+var _user$project$Component_Type$Wall = {ctor: 'Wall'};
+var _user$project$Component_Type$Floor = {ctor: 'Floor'};
+var _user$project$Component_Type$Box = function (a) {
+	return {ctor: 'Box', _0: a};
+};
+var _user$project$Component_Type$component = function (c) {
+	var _p5 = c;
+	switch (_p5.valueOf()) {
+		case 'w':
+			return _elm_lang$core$Maybe$Just(_user$project$Component_Type$Wall);
+		case 'e':
+			return _elm_lang$core$Maybe$Just(_user$project$Component_Type$Empty);
+		case 'f':
+			return _elm_lang$core$Maybe$Just(_user$project$Component_Type$Floor);
+		case 's':
+			return _elm_lang$core$Maybe$Just(_user$project$Component_Type$Player);
+		case 'g':
+			return _elm_lang$core$Maybe$Just(_user$project$Component_Type$Goal);
+		case 'b':
+			return _elm_lang$core$Maybe$Just(
+				_user$project$Component_Type$Box(false));
+		case 'v':
+			return _elm_lang$core$Maybe$Just(
+				_user$project$Component_Type$Box(true));
+		default:
+			return _elm_lang$core$Maybe$Nothing;
+	}
+};
