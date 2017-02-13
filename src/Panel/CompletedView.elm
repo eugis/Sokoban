@@ -10,6 +10,8 @@ import General.Colors exposing (background, toRgbaString)
 import Panel.Type exposing (completedLevelHeader, completedLevelRetry,
                             completedLevelNextLevel, completedLevelBackMenu)
 import GameState
+import Button.Type exposing (Button(..))
+import Button.View exposing (render)
 
 render: Stats -> Html Action
 render stats =  General.Render.layout
@@ -31,19 +33,14 @@ renderStats stats = Html.div [General.Style.row]
 
 renderActions: Stats -> Html Action
 renderActions stats =
-    Html.div [General.Style.row, General.Style.stats]
-             [ renderAction (Menu 1) completedLevelBackMenu
-             , renderAction (NextLevel (stats.level)) completedLevelRetry
-             , renderAction (NextLevel (stats.level + 1)) completedLevelNextLevel
-             ]
-
-renderAction: Action -> String -> Html Action
-renderAction action title = Html.div [ General.Style.item
-                                     , General.Style.buttonStyle
-                                     , General.Style.generalButtonStyle
-                                     , Html.Events.onClick action
-                                     ]
-                                     [(Html.text title)]
+    let
+      attributes = [ General.Style.item, General.Style.buttonStyle ]
+    in
+      Html.div [General.Style.row, General.Style.stats]
+               [ Button.View.render (Button.Type.Menu 1) attributes
+               , Button.View.render (Button.Type.Retry stats.level) attributes
+               , Button.View.render (Button.Type.Next (stats.level + 1)) attributes
+               ]
 
 renderStats': Stats -> Html Action
 renderStats' stats =   Html.div [General.Style.row, General.Style.stats]

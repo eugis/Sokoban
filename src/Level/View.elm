@@ -3,9 +3,9 @@ module Level.View exposing (render)
 import Graphics.Render exposing (..)
 import Html exposing (Html)
 import Html.Attributes exposing (..)
-import Level.Type exposing (Level, menu, retry, appTitle, levelText)
+import Level.Type exposing (Level, appTitle, levelText)
 import Board.View exposing (render)
-import Action.Type exposing (Action(..))
+import Action.Type exposing (Action)
 import Component.View exposing (render)
 import Component.Type exposing (Component(..))
 import Stats.View exposing (render)
@@ -15,17 +15,19 @@ import List
 import General.Style exposing (levelMainPanel)
 import General.Colors exposing (background, toRgbaString, panelBackground)
 import Html.Events exposing (onClick)
+import Button.View exposing (render)
+import Button.Type exposing (Button(..))
 
 -- Update later
 render: Level -> Html Action
 render level = General.Render.layout
-                                     [ General.Render.backgroundView (toRgbaString background)
-                                     , Html.div [General.Style.layoutVertical]
-                                              [ renderTopBar level.stats.level
-                                              , renderBoardZone [renderCompleteBoard level]
-                                              , Stats.View.render level.stats
-                                              ]
-                                      ]
+                      [ General.Render.backgroundView (toRgbaString background)
+                      , Html.div [General.Style.layoutVertical]
+                                 [ renderTopBar level.stats.level
+                                 , renderBoardZone [renderCompleteBoard level]
+                                 , Stats.View.render level.stats
+                                 ]
+                      ]
 
 renderBoxes: Level -> Form Action
 renderBoxes level =
@@ -50,7 +52,6 @@ renderCompleteBoard level =
               |> List.repeat 1
               |> Html.div [(General.Style.board width height)]
 
-
 -- Render of top bar
 renderTopBar: Int -> Html Action
 renderTopBar levelNumber =
@@ -62,25 +63,27 @@ renderTopBar levelNumber =
 
 renderActions: Int -> Html Action
 renderActions levelNumber =
-    Html.div [General.Style.topItem]
-             [ renderAction (Menu 1) menu
-             , renderAction (NextLevel levelNumber) retry
-             ]
-
-renderAction: Action -> String -> Html Action
-renderAction action title = Html.div [ General.Style.item
-                                     , General.Style.topButtonStyle
-                                     , General.Style.generalButtonStyle
-                                     , Html.Events.onClick action
-                                     ]
-                                     [(Html.text title)]
+    let
+        attributes = [ General.Style.item, General.Style.topButtonStyle]
+    in
+        Html.div [General.Style.topItem 1]
+                 [ Button.View.render (Menu 1) attributes
+                 , Button.View.render (Retry levelNumber) attributes
+                 ]
 
 renderBoardZone: List (Html Action) -> Html Action
 renderBoardZone components = Html.div [levelMainPanel] components
 
 sokobanTitle: Html Action
-sokobanTitle = Html.div [General.Style.topTitles 2.25 1] [Html.text appTitle]
+sokobanTitle = [Html.div [] [Html.text appTitle]] |> topContainerItem 1 2
 
 levelTitle: Int -> Html Action
-levelTitle levelNumber = Html.div [General.Style.topTitles 2.25 2]
-                                  [Html.text (levelText levelNumber)]
+levelTitle levelNumber = [Html.div [] [Html.text (levelText levelNumber)]]
+                              |> topContainerItem 2 2.5
+
+topContainerItem: Int -> Float -> List (Html Action) -> Html Action
+topContainerItem growth size views = Html.div [ General.Style.topItem growth
+                                              , General.Style.topCenter
+                                              , General.Style.topTitles size
+                                              ]
+                                              views

@@ -11,7 +11,8 @@
         "./src/Level/Information",
         "./src/Level/Component",
         "./src/Panel",
-        "./src/general"
+        "./src/general",
+        "./src/general/button"
     ],
     "exposed-modules": [],
     "dependencies": {
